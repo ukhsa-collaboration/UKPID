@@ -1,0 +1,16 @@
+%clean-child-margins {
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+%no-child-margins {
+  > * {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+}

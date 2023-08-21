@@ -1,1 +1,2 @@
-.idea
+.vscode
+docker-compose.override.yml

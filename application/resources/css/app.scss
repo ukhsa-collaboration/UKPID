@@ -1,0 +1,121 @@
+@use "abstracts/functions" as fns;
+@use "abstracts/variables/breakpoints";
+@use "custom-properties";
+@import "normalize.css";
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  text-size-adjust: none; // stylelint-disable-line plugin/no-unsupported-browser-features
+  font: 0.85em var(--body-font-family);
+
+  @supports (font: -apple-system-body) and (text-size-adjust: none) {
+    --font-size: 16;
+
+    font: -apple-system-body !important; // stylelint-disable-line font-family-no-missing-generic-family-keyword
+    // stylelint-disable-next-line plugin/no-unsupported-browser-features
+    text-size-adjust: calc(
+      var(--font-size) / 17 * 100%
+    ) !important; // Set the preferred font size based on the default dynamic type size (17px)
+  }
+
+  @media screen and (min-width: breakpoints.$md) {
+    font-size: 1em;
+  }
+}
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+#ukpid {
+  --app-gap: #{fns.gap(0.5)};
+
+  font-family: var(--body-font);
+  background-color: var(--fill-color);
+  color: var(--neutral-foreground-rest);
+  height: 100%;
+  width: 100%;
+  word-break: break-word;
+  hyphens: auto;
+
+  @media screen and (min-width: breakpoints.$xs) {
+    word-break: normal;
+    hyphens: unset;
+  }
+
+  @media screen and (min-width: breakpoints.$md) {
+    --app-gap: #{fns.gap(1)};
+  }
+
+  @media screen and (min-width: breakpoints.$xl) {
+    --app-gap: #{fns.gap(2)};
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+@for $i from 1 through 6 {
+  h#{$i},
+  .h#{$i} {
+    /* stylelint-disable custom-property-pattern */
+    font-size: var(--type-ramp-plus-#{7 - $i}-font-size);
+    line-height: var(--type-ramp-plus-#{7 - $i}-line-height);
+    margin-top: var(--type-ramp-plus-#{7 - $i}-top-margin);
+    margin-bottom: var(--type-ramp-plus-#{7 - $i}-bottom-margin);
+    /* stylelint-enable custom-property-pattern */
+  }
+}
+
+p,
+.p {
+  margin-top: var(--type-ramp-base-top-margin);
+  margin-bottom: var(--type-ramp-base-bottom-margin);
+  font-weight: normal;
+  font-size: var(--type-ramp-base-font-size);
+  line-height: var(--type-ramp-base-line-height);
+}
+
+.subtitle {
+  font-size: var(--type-ramp-plus-1-font-size);
+  line-height: var(--type-ramp-plus-1-line-height);
+}
+
+.text-small,
+small {
+  font-size: var(--type-ramp-minus-1-font-size);
+  line-height: var(--type-ramp-minus-1-line-height);
+}
+
+.text-smallest {
+  font-size: var(--type-ramp-minus-2-font-size);
+  line-height: var(--type-ramp-minus-2-line-height);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: var(--link-text-decoration);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: var(--link-color-hover);
+    text-decoration: var(--link-text-decoration-hover);
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+// #layer-2 {
+//    font-family: var(--body-font);
+//    background-color: var(--fill-color);
+//    color: var(--neutral-foreground-rest);
+// }

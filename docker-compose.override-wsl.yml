@@ -1,0 +1,13 @@
+# Sets the correct user for WSL2 deployments
+
+version: '3'
+
+services:
+  laravel:
+    user: "1000:1000"
+  composer:
+    user: "1000:1000"
+  npm:
+    user: "1000:1000"
+  vite:
+    user: "1000:1000"

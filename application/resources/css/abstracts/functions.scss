@@ -1,0 +1,10 @@
+/**
+ * Return a css calc function for gaps
+ */
+@function gap($multiplier: 1) {
+  @if $multiplier == 1 {
+    @return var(--base-gap);
+  }
+
+  @return calc(var(--base-gap) * #{$multiplier});
+}

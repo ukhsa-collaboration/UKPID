@@ -1,0 +1,14 @@
+$xs: 26.25em; // 420px;
+$sm: 33.75em; // 540px;
+$md: 48em; // 768px;
+$lg: 64em; // 1024px;
+$xl: 75em; // 1200px;
+
+$breakpoints: (
+  "xs": $xs,
+  "sm": $sm,
+  "md": $md,
+  "lg": $lg,
+  "xl": $xl,
+);
+$desktop-menu: 64em;

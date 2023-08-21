@@ -1,0 +1,158 @@
+stages:
+  - preparation
+  - build
+  - test
+#  - deploy
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v(\S)+-production/' # Production Deployment
+      variables:
+        CI_ENVIRONMENT: Production
+    - if: '$CI_COMMIT_TAG =~ /^v(\S)+-stage/' # Stage Deployment
+      variables:
+        CI_ENVIRONMENT: Stage
+    - when: always
+
+.test-rules:
+  # Run manually if draft/wip merge request, otherwise run on success if merge request or main branch commit
+  - if: '$CI_MERGE_REQUEST_ID && ($CI_MERGE_REQUEST_TITLE !~ /^WIP: .*/ && $CI_MERGE_REQUEST_TITLE !~ /^Draft: .*/)'
+    when: on_success
+  - if: '$CI_MERGE_REQUEST_ID && ($CI_MERGE_REQUEST_TITLE =~ /^WIP: .*/ || $CI_MERGE_REQUEST_TITLE =~ /^Draft: .*/)'
+    when: manual
+  - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    when: on_success
+
+.deploy-rules:
+  # Run on success if tagged with a version, e.g. v1.0.2-production
+  - if: '$CI_COMMIT_TAG =~ /^v(\S)+-(stage|production)/'
+    when: on_success
+
+composer:
+  stage: preparation
+  image: composer:2
+  script:
+    - cd ./application
+    - composer install
+  artifacts:
+    paths:
+      - ./application/vendor
+    expire_in: 1 days
+    when: always
+  rules:
+    - !reference [.test-rules]
+    - !reference [.deploy-rules]
+
+npm:
+  stage: preparation
+  image: node:20-alpine
+  script:
+    - cd ./application
+    - npm install
+  artifacts:
+    paths:
+      - ./application/node_modules
+    expire_in: 1 days
+    when: always
+  rules:
+    - !reference [.test-rules]
+    - !reference [.deploy-rules]
+
+build-assets:
+  stage: build
+  image: node:20-alpine
+  needs:
+    - job: npm
+      artifacts: true
+    - job: composer
+      artifacts: true
+  script:
+    - cd ./application
+    - npm run build
+  artifacts:
+    paths:
+      - ./application/public/build
+    expire_in: 1 days
+    when: always
+  rules:
+    - !reference [.test-rules]
+    - !reference [.deploy-rules]
+
+prettier:
+  stage: test
+  image: node:20-alpine
+  needs:
+    - job: npm
+      artifacts: true
+    - job: composer
+      artifacts: true
+  script:
+    - cd ./application
+    - npm run lint:prettier
+  rules:
+    - !reference [.test-rules]
+    - !reference [.deploy-rules]
+
+eslint:
+  stage: test
+  image: node:20-alpine
+  needs:
+    - job: npm
+      artifacts: true
+    - job: composer
+      artifacts: true
+  script:
+    - cd ./application
+    - npm run lint:js
+  rules:
+    - !reference [.test-rules]
+    - !reference [.deploy-rules]
+
+stylelint:
+  stage: test
+  image: node:20-alpine
+  needs:
+    - job: npm
+      artifacts: true
+    - job: composer
+      artifacts: true
+  script:
+    - cd ./application
+    - npm run lint:style
+  rules:
+    - !reference [.test-rules]
+    - !reference [.deploy-rules]
+
+phpunit:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/laravel:latest
+  services:
+    - name: mysql:8.0
+      alias: laravel-testing
+  variables:
+    MYSQL_DATABASE: "laravel"
+    MYSQL_ROOT_PASSWORD: "laravel"
+    MYSQL_USER: "laravel"
+    MYSQL_PASSWORD: "laravel"
+  needs:
+    - job: composer
+      artifacts: true
+    - job: build-assets
+      artifacts: true
+  script:
+    - cd ./application
+    - cp .env.gitlab-ci.testing .env.testing
+    - php artisan key:generate --env=testing
+    - php artisan clear --env=testing
+    - php artisan config:clear --env=testing
+    - php artisan migrate:fresh --force --env=testing
+    - php artisan test --env=testing
+    - php artisan migrate:rollback --force --env=testing # Test migrations and rollbacks work as expected
+  artifacts:
+    paths:
+      - ./app/storage/logs/
+    expire_in: 1 days
+    when: always
+  rules:
+    - !reference [.test-rules]
+    - !reference [.deploy-rules]

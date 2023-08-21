@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint:js": "eslint --ext \".ts,.vue,.js\" .",
+    "lint:prettier": "prettier --check .",
+    "lint:style": "stylelint \"**/*.{css,scss,sass,html,vue}\"",
+    "lint": "npm run lint:js && npm run lint:prettier && npm run lint:style"
+  },
+  "devDependencies": {
+    "eslint": "^8.47.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "laravel-vite-plugin": "^0.7.5",
+    "prettier": "3.0.2",
+    "sass": "^1.65.1",
+    "stylelint": "^15.10.2",
+    "stylelint-config-standard-scss": "^10.0.0",
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "@fluentui/web-components": "^2.5.16",
+    "axios": "^1.4.0",
+    "normalize.css": "^8.0.1"
+  }
+}

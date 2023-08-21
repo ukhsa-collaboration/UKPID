@@ -1,0 +1,7 @@
+# Ignore artifacts:
+public/build
+public/vendor
+coverage
+node_modules
+vendor
+composer.lock
