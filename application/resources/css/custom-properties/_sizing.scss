@@ -1,0 +1,26 @@
+@use "../abstracts/variables/breakpoints";
+@use "../abstracts/functions" as fns;
+
+:root {
+  --base-gap: 16px;
+  --page-gap: #{fns.gap(1)};
+  --container-max-width: 1200px;
+  --container-x-padding: 8px;
+  --container-y-padding: 8px;
+  --input-padding: #{fns.gap(0.5)};
+
+  @media screen and (min-width: breakpoints.$sm) {
+    --container-x-padding: 12px;
+    --container-y-padding: 12px;
+  }
+
+  @media screen and (min-width: breakpoints.$md) {
+    --container-x-padding: 16px;
+    --container-y-padding: 16px;
+    --page-gap: #{fns.gap(1)};
+  }
+
+  @media screen and (min-width: breakpoints.$xl) {
+    --page-gap: #{fns.gap(2)};
+  }
+}
