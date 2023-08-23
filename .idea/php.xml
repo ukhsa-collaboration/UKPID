@@ -140,6 +140,11 @@
       <path value="$PROJECT_DIR$/application/vendor/symfony/routing" />
       <path value="$PROJECT_DIR$/application/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/application/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/application/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/application/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/application/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/application/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/application/vendor/doctrine/event-manager" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

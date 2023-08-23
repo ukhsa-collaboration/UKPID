@@ -43,7 +43,7 @@ You must have the following setup and ready to go before working on this project
     * For more details on this, visit
       the [Juicy Media Wiki](https://juicy-media-ltd.gitlab.io/wiki/development/docker.html)
 * [PhpStorm](https://www.jetbrains.com/phpstorm/) **2023.2 or later**
-    * The `.idea` folder is intentionally committed to this repository, as it stores IDE configurations that will assist
+    * The `.idea` directory is intentionally committed to this repository, as it stores IDE configurations that will assist
       with the development of this application (e.g. Larvel Pint inspection profiles, an XDebug config, and so on).
     * [Laravel Idea](https://plugins.jetbrains.com/plugin/13441-laravel-idea) is a paid extension for PhpStorm which
       provides additional IDE support for Laravel. It is highly recommended.
@@ -124,13 +124,6 @@ merge request to be accepted and for the deployment to start.
 
 You can use `docker-compose exec laravel php artisan test` to run the tests.
 
-## API Documentation
-[Scramble](https://scramble.dedoc.co) is used to generate API documentation. 
-
-You'll have two routes where you can view the documentation on your local environment:
-- `/docs/api` - UI viewer for your documentation
-- `/docs/api.json` - Open API document in JSON format describing your API.
-
 ## Contributing
 
 ### Code quality
@@ -189,3 +182,17 @@ Merge requests must be reviewed and approved by a lead developer. CI/CD Pipeline
 and code quality tests on the code being submitted for merge. These pipelines must succeed before the merge request can
 be approved. To save time and reduce the usage of pipeline minutes, it is recommended you run these tools locally before
 marking your MR as ready for review.
+
+## Documentation
+
+### API Documentation
+[Scramble](https://scramble.dedoc.co) is used to generate API documentation. 
+
+You'll have two routes where you can view the documentation on your local environment:
+- `/docs/api` - UI viewer for your documentation
+- `/docs/api.json` - Open API document in JSON format describing your API.
+
+Scramble will analyze the code and try and detect what type a property is, however it may not always be correct (it doesn't appear to have support for Eloquent Accessors & Mutators, for example). You should review the documentation as you add new resources and endpoints and ensure the type definitions are correct. 
+
+### Application Documentation
+While your code should be clean, obvious, and documented through docblocks and comments as appropriate, it may be necessary to write documentation to detail processes, features, and anything else you deem relevant as you contribute to this application. If you do this, you should write it in a Markdown file in the `/docs` directory.
