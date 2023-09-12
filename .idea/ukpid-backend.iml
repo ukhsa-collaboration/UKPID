@@ -128,6 +128,8 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/deprecations" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/event-manager" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/dusk" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/php-webdriver/webdriver" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

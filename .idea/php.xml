@@ -145,6 +145,8 @@
       <path value="$PROJECT_DIR$/application/vendor/doctrine/deprecations" />
       <path value="$PROJECT_DIR$/application/vendor/doctrine/dbal" />
       <path value="$PROJECT_DIR$/application/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/application/vendor/laravel/dusk" />
+      <path value="$PROJECT_DIR$/application/vendor/php-webdriver/webdriver" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

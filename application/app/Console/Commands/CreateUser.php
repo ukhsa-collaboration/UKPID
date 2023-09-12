@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Password;
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
 
@@ -31,7 +32,6 @@ class CreateUser extends Command
      */
     public function handle()
     {
-        $this->info('Hello!');
         $name = text(
             label: "What is the user's name?",
             required: true
@@ -40,10 +40,11 @@ class CreateUser extends Command
         $email = text(
             label: "What is the user's email address?",
             required: true,
-            validate: fn (string $value) => match (true) {
-                strlen($value) && strlen($value) < 8 => 'Must be a valid email address.',
-                default => null
-            },
+            validate: function (string $value) {
+                $validator = Validator::make(['email' => $value], ['email' => ['email']]);
+
+                return $validator->fails() ? 'Must be a valid email address.' : null;
+            }
         );
 
         $location = select(
@@ -53,11 +54,11 @@ class CreateUser extends Command
 
         $password = text(
             label: 'Enter a password for the user. Leave blank to generate a random password.',
-            placeholder: 'Minimum 8 characters...',
+            placeholder: 'Minimum 8 characters',
             validate: function (string $value) {
-                $validator = Validator::make(['email' => $value], ['email' => ['email']]);
+                $validator = Validator::make(['password' => $value], ['password' => [Password::defaults()]]);
 
-                return $validator->fails();
+                return $validator->fails() ? implode(' | ', $validator->errors()->get('password')) : null;
             }
         );
 
