@@ -1,4 +1,4 @@
-# Sets the correct user for WSL2 deployments
+# Sets the correct user for WSL2 environments.
 
 version: '3'
 

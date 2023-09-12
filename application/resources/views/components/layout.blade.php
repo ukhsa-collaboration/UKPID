@@ -15,6 +15,8 @@
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>
 <body>
+<div id="ukpid">
 {{ $slot }}
+</div>
 </body>
 </html>

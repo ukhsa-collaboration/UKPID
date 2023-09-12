@@ -14,6 +14,8 @@ RUN apk add --no-cache \
     libpng libpng-dev \
     libpng \
     libpng-dev \
+    libzip-dev \
+    zip \
     $PHPIZE_DEPS
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
@@ -22,7 +24,8 @@ RUN docker-php-ext-install  \
     pdo_mysql \
     sockets \
     bcmath \
-    gd
+    gd \
+    zip
 
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini";
