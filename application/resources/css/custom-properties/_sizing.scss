@@ -23,4 +23,21 @@
   @media screen and (min-width: breakpoints.$xl) {
     --page-gap: #{fns.gap(2)};
   }
+
+  --container-right-padding: max(
+    env(safe-area-inset-right),
+    var(--container-x-padding)
+  );
+  --container-left-padding: max(
+    env(safe-area-inset-left),
+    var(--container-x-padding)
+  );
+  --container-top-padding: max(
+    env(safe-area-inset-top),
+    var(--container-y-padding)
+  );
+  --container-bottom-padding: max(
+    env(safe-area-inset-bottom),
+    var(--container-y-padding)
+  );
 }

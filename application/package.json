@@ -23,6 +23,7 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
+    "@fluentui/svg-icons": "^1.1.198",
     "@fluentui/web-components": "^2.5.16",
     "axios": "^1.4.0",
     "normalize.css": "^8.0.1"

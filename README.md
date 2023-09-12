@@ -40,11 +40,13 @@ You must have the following setup and ready to go before working on this project
     * On Windows, ensure Docker is using WSL2. It is highly recommended that you clone this project inside your WSL
       environment, the performance gain of this vs running it from Windows will be vast.
     * On Mac, ensure Docker is configured to use VirtioFS as its file sharing implementation.
+    * If using an Apple Silicon-based (M1, M2, etc.) Mac, you should enable Docker to use Rosetta for x86/amd64 emulation. As of time of writing, this is a beta feature which can be enabled in Docker settings under the Features in Development section.
+      * Doing this ensures that Laravel Dusk and Selenium work correctly.
     * For more details on this, visit
       the [Juicy Media Wiki](https://juicy-media-ltd.gitlab.io/wiki/development/docker.html)
 * [PhpStorm](https://www.jetbrains.com/phpstorm/) **2023.2 or later**
-    * The `.idea` folder is intentionally committed to this repository, as it stores IDE configurations that will assist
-      with the development of this application (e.g. Larvel Pint inspection profiles, an XDebug config, and so on).
+    * The `.idea` directory is intentionally committed to this repository, as it stores IDE configurations that will assist
+      with the development of this application (e.g. Laravel Pint inspection profiles, an XDebug config, and so on).
     * [Laravel Idea](https://plugins.jetbrains.com/plugin/13441-laravel-idea) is a paid extension for PhpStorm which
       provides additional IDE support for Laravel. It is highly recommended.
 
@@ -62,6 +64,7 @@ The actual application is contained within the `/application` directory.
 1. In `/application`, copy the `.env.development` file to `.env`.
     * This should contain all the environment variables required to get started for development
 2. **Windows only:** Copy the `/docker-compose.override-wsl.yml` file to `/docker-compose.override.yml`
+   * The WSL override file in the project assumes the WSL OS that Docker is configured to use has a user set up and isn't using the root account. You may need to tweak your override file or not use it if you encounter file permission issues.
 3. Run `docker-compose up` in the root of the project to start the docker containers
 4. Run `docker-compose run composer composer install` to Composer packages
     * 🤩 Add yourself to the authors listed in the composer.json file!
@@ -98,6 +101,8 @@ Vite has two commands:
 As with the frontend application, the minimal UI provided by the backend
 utilises [Microsoft's Fluent UI web components](https://learn.microsoft.com/en-us/fluent-ui/web-components/).
 
+For icons, use [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons/tree/main). Copy the icon you need to the `public/icons` directory if you need to serve the icon file (i.e. in an `<img>`), or copy the SVG source code to a new component in `resources/views/components/icons`. If creating a component, add the `ukpid-logo` class to the `<svg>` element.
+
 ### Telescope
 
 [Laravel Telescope](https://laravel.com/docs/10.x/telescope) is accessible on local environments
@@ -111,6 +116,9 @@ You will need to send a `XDEBUG_SESSION` cookie with the value `PHPSTORM` with y
 cookie can be set with
 the [Xdebug Helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc) extension.
 
+To run Artisan with XDebug enabled, inside the interactive shell run: <br>
+`export XDEBUG_CONFIG="idekey=PHPSTORM remote_connect_back=1 client_host=host.docker.internal client_port=9003"`.
+
 ## Testing
 
 This project uses [Laravel's testing tools](https://laravel.com/docs/10.x/testing) for unit and feature testing.
@@ -122,14 +130,15 @@ write can be tested in isolation, you should write a unit test.
 Tests are run automatically on merge requests, commits to the `main` branch, and on deployments. Tests must pass for the
 merge request to be accepted and for the deployment to start.
 
+Testing requires a few extra docker containers, such as a testing database, and Selenium for frontend tests. To help save resources, these are **not** set to spin up with the other containers listed in the docker compose file. When you come to run tests on your development machine, you should run `docker-compose --profile test up` before running the commands below.
+
 You can use `docker-compose exec laravel php artisan test` to run the tests.
 
-## API Documentation
-[Scramble](https://scramble.dedoc.co) is used to generate API documentation. 
+### Frontend testing
 
-You'll have two routes where you can view the documentation on your local environment:
-- `/docs/api` - UI viewer for your documentation
-- `/docs/api.json` - Open API document in JSON format describing your API.
+Since this application has a frontend, however minimal it may be, it also requires testing. For this, [Laravel Dusk](https://laravel.com/docs/10.x/dusk) is used.
+
+You can use `docker-compose exec laravel php artisan dusk` to run the tests. **Ensure you have built the frontend assets for production, and are not running Vite's dev server before running Dusk.**
 
 ## Contributing
 
@@ -189,3 +198,17 @@ Merge requests must be reviewed and approved by a lead developer. CI/CD Pipeline
 and code quality tests on the code being submitted for merge. These pipelines must succeed before the merge request can
 be approved. To save time and reduce the usage of pipeline minutes, it is recommended you run these tools locally before
 marking your MR as ready for review.
+
+## Documentation
+
+### API Documentation
+[Scramble](https://scramble.dedoc.co) is used to generate API documentation. 
+
+You'll have two routes where you can view the documentation on your local environment:
+- `/docs/api` - UI viewer for your documentation
+- `/docs/api.json` - Open API document in JSON format describing your API.
+
+Scramble will analyze the code and try and detect what type a property is, however it may not always be correct (it doesn't appear to have support for Eloquent Accessors & Mutators, for example). You should review the documentation as you add new resources and endpoints and ensure the type definitions are correct. 
+
+### Application Documentation
+While your code should be clean, obvious, and documented through docblocks and comments as appropriate, it may be necessary to write documentation to detail processes, features, and anything else you deem relevant as you contribute to this application. If you do this, you should write it in a Markdown file in the `/docs` directory.

@@ -8,21 +8,6 @@ html {
   height: 100%;
   width: 100%;
   text-size-adjust: none; // stylelint-disable-line plugin/no-unsupported-browser-features
-  font: 0.85em var(--body-font-family);
-
-  @supports (font: -apple-system-body) and (text-size-adjust: none) {
-    --font-size: 16;
-
-    font: -apple-system-body !important; // stylelint-disable-line font-family-no-missing-generic-family-keyword
-    // stylelint-disable-next-line plugin/no-unsupported-browser-features
-    text-size-adjust: calc(
-      var(--font-size) / 17 * 100%
-    ) !important; // Set the preferred font size based on the default dynamic type size (17px)
-  }
-
-  @media screen and (min-width: breakpoints.$md) {
-    font-size: 1em;
-  }
 }
 
 body {
@@ -34,6 +19,8 @@ body {
   --app-gap: #{fns.gap(0.5)};
 
   font-family: var(--body-font);
+  font-size: var(--type-ramp-base-font-size);
+  line-height: var(--type-ramp-base-line-height);
   background-color: var(--fill-color);
   color: var(--neutral-foreground-rest);
   height: 100%;
@@ -114,8 +101,70 @@ a {
   text-align: center;
 }
 
-// #layer-2 {
-//    font-family: var(--body-font);
-//    background-color: var(--fill-color);
-//    color: var(--neutral-foreground-rest);
-// }
+.ukpid-icon {
+  height: 1em;
+  width: auto;
+  fill: currentcolor;
+  position: relative;
+  top: 0.2em;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--container-top-padding) var(--container-right-padding)
+    var(--container-bottom-padding) var(--container-left-padding);
+}
+
+.ukpid-logo {
+  font-size: var(--type-ramp-minus-1-font-size);
+  line-height: var(--type-ramp-minus-1-line-height);
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: fns.gap(0.5);
+}
+
+.auth-container {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.auth-title {
+  font-size: var(--type-ramp-plus-4-font-size);
+  line-height: var(--type-ramp-plus-4-line-height);
+}
+
+.form-group {
+  margin-bottom: fns.gap(0.5);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.auth-container__title {
+  text-align: center;
+}
+
+.input-errors {
+  font-size: var(--type-ramp-minus-1-font-variations);
+  line-height: var(--type-ramp-minus-1-line-height);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: var(--danger);
+}
+
+.auth-session-status {
+  font-size: var(--type-ramp-minus-1-font-variations);
+  line-height: var(--type-ramp-minus-1-line-height);
+  color: var(--success);
+  margin-bottom: fns.gap(1);
+}
+
+.message-with-icon {
+  // display: flex;
+  // align-items: center;
+  // gap: 0.25em;
+}

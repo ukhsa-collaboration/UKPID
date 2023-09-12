@@ -1,3 +1,12 @@
 {
-  "extends": "stylelint-config-standard-scss"
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "selector-class-pattern": [
+      "^(([a-z][a-z0-9]*(-[a-z0-9]+)*))(__(([a-z0-9][a-z0-9]*(-[a-z0-9]+)*)))?(--(([a-z0-9][a-z0-9]*(-[a-z0-9]+)*)))?$",
+      {
+        "resolveNestedSelectors": true,
+        "message": "Expect class selector to conform to kebab-case BEM, see https://github.com/Skyscanner/stylelint-config-skyscanner#class-selector-pattern for pattern (selector-class-pattern)"
+      }
+    ]
+  }
 }
