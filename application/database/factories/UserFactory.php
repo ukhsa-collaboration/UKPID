@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Constants\Locations;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -29,6 +30,13 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'location' => array_rand(array_values($locations)),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('User');
+        });
     }
 
     /**

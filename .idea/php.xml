@@ -147,6 +147,7 @@
       <path value="$PROJECT_DIR$/application/vendor/doctrine/event-manager" />
       <path value="$PROJECT_DIR$/application/vendor/laravel/dusk" />
       <path value="$PROJECT_DIR$/application/vendor/php-webdriver/webdriver" />
+      <path value="$PROJECT_DIR$/application/vendor/spatie/laravel-permission" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

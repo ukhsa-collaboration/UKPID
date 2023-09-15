@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
+use Spatie\Permission\Models\Role;
 
 class CreateUser extends Command
 {
@@ -52,6 +53,11 @@ class CreateUser extends Command
             options: array_flip(Locations::all()),
         );
 
+        $role = select(
+            label: 'What is the role of the user?',
+            options: Role::all()->pluck('name', 'id'),
+        );
+
         $password = text(
             label: 'Enter a password for the user. Leave blank to generate a random password.',
             placeholder: 'Minimum 8 characters',
@@ -73,12 +79,15 @@ class CreateUser extends Command
             'password' => $password,
         ]);
 
+        $user->assignRole($role);
+
         $this->info('User created!');
         $this->newLine();
         $this->line('ID: '.$user->id);
         $this->line('Name: '.$user->name);
         $this->line('Email: '.$user->email);
         $this->line('Location: '.$user->location['key']);
+        $this->line('Role: '.$user->getRoleNames()->implode(', '));
         $this->line('Password: '.$password);
     }
 }
