@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/scratches/scratch_69.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="$APPLICATION_CONFIG_DIR$/scratches/scratch_87.csv">
           <value>
             <Attribute>

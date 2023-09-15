@@ -11,8 +11,9 @@ services:
     env_file: ./.docker/.env
     restart: unless-stopped
     volumes:
-      - ./application:/var/www/htdocs/:delegated
-      - ./.docker/php-ini-overrides.ini:/usr/local/etc/php/conf.d/php-ini-overrides.ini:ro
+      - ./application:/var/www/htdocs/
+      - ./.docker/php-ini-overrides.ini:/usr/local/etc/php/conf.d/php-ini-overrides.ini
+      - ./.docker/.laravel:/root
     working_dir: /var/www/htdocs
     depends_on:
       - db
@@ -24,8 +25,8 @@ services:
     ports:
       - "127.0.0.1:35080:80"
     volumes:
-      - ./application:/var/www/htdocs/:cached
-      - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./application:/var/www/htdocs/
+      - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - laravel
 
@@ -38,7 +39,7 @@ services:
     ports:
       - "127.0.0.1:35081:3306"
     volumes:
-      - ./.docker/.mysql:/var/lib/mysql:delegated
+      - ./.docker/.mysql:/var/lib/mysql
 
   # Application testing
   selenium:
@@ -74,7 +75,7 @@ services:
       - composer
     restart: "no"
     volumes:
-      - ./application:/app/:delegated
+      - ./application:/app/
       - ${COMPOSER_HOME:-$HOME/.composer}:/tmp
     command:
       composer install
@@ -88,7 +89,7 @@ services:
     ports:
       - "35174:35174"
     volumes:
-      - ./application:/usr/src/app/:delegated
+      - ./application:/usr/src/app/
     command:
       npm run dev
 
@@ -99,6 +100,6 @@ services:
       - npm
     restart: "no"
     volumes:
-      - ./application:/usr/src/app/:delegated
+      - ./application:/usr/src/app/
     command:
       npm install

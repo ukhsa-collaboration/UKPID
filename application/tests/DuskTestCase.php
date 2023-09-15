@@ -12,6 +12,8 @@ abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    protected bool $seed = true;
+
     /**
      * Prepare for Dusk test execution.
      *
