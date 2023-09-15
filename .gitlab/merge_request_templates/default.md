@@ -9,6 +9,6 @@ Closes #<INSERT_RELATED_ISSUE>
 - [ ] I have added new comprehensive tests to cover the code and features implemented in this merge request 
 - [ ] All code quality tools (linters, formatters) report no issues 
 - [ ] All tests pass successfully
-- [ ] Where applicable, I have updated the README to detail useful information related to the features I've added
+- [ ] Where applicable, I have updated the README or /docs to detail useful information related to the features I've added
 - [ ] I have reflected any changes made to my .env file in the other .env files
 - [ ] Finally, mark this merge request as ready once the checklist is complete.
