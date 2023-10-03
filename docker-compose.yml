@@ -17,6 +17,7 @@ services:
     working_dir: /var/www/htdocs
     depends_on:
       - db
+      - mongo
       - mailpit
 
   web:
@@ -40,6 +41,19 @@ services:
       - "127.0.0.1:35081:3306"
     volumes:
       - ./.docker/.mysql:/var/lib/mysql
+
+  mongo:
+    image: mongo:7.0.2
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    command: [--auth]
 
   # Application testing
   selenium:
@@ -103,3 +117,5 @@ services:
       - ./application:/usr/src/app/
     command:
       npm install
+volumes:
+  mongodb_data:

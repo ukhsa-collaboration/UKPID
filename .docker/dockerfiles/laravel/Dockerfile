@@ -16,6 +16,8 @@ RUN apk add --no-cache \
     libpng-dev \
     libzip-dev \
     zip \
+    curl-dev \
+    openssl-dev \
     $PHPIZE_DEPS
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
@@ -26,6 +28,10 @@ RUN docker-php-ext-install  \
     bcmath \
     gd \
     zip
+
+RUN pecl install mongodb
+RUN echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongo.ini;
+
 
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini";
