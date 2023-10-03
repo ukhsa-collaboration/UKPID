@@ -130,6 +130,26 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/dusk" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/php-webdriver/webdriver" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/paragonie/constant_time_encoding" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/lcobucci/jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/lcobucci/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/nyholm/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/jenssegers/mongodb" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/psr/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/symfony/polyfill-php81" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/symfony/polyfill-php73" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/symfony/psr-http-message-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/defuse/php-encryption" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/jean85/pretty-package-versions" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/mongodb/mongodb" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/phpseclib/phpseclib" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/passport" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/league/uri-interfaces" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/league/oauth2-server" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/league/event" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/league/uri" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
