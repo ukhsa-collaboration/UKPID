@@ -12,7 +12,9 @@ class SplitCsv extends Command
                         {enquiriesPerFile=10 : The number of enquiries per split file}
                         {maxFileCount=10 : The maximum number of split files to generate}';
     protected $description = 'Split a large CSV file into smaller chunks';
-    public function handle() {
+
+    public function handle()
+    {
         $inputFile = $this->argument('inputFile');
         $outputDir = $this->argument('outputDir');
         $enquiriesPerFile = $this->argument('enquiriesPerFile');

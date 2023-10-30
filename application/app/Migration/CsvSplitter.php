@@ -2,7 +2,8 @@
 
 namespace App\Migration;
 
-class CsvSplitter {
+class CsvSplitter
+{
     public static function execute($inputFile, $outputDir, $enquiriesPerFile = 1000, $maxFileCount = 100) : void
     {
         $handle = self::openCsv($inputFile);

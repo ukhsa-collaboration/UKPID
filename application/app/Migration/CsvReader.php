@@ -21,7 +21,6 @@ class CsvReader
 
             $row = fgetcsv($handle);
             $row = mb_convert_encoding($row, 'UTF-8', 'ISO-8859-1');
-
             if (!is_array($row)) {
                 // probably whitespace at EOF, just end
                 break;
