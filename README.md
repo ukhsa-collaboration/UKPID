@@ -65,14 +65,15 @@ The actual application is contained within the `/application` directory.
     * This should contain all the environment variables required to get started for development
 2. **Windows only:** Copy the `/docker-compose.override-wsl.yml` file to `/docker-compose.override.yml`
    * The WSL override file in the project assumes the WSL OS that Docker is configured to use has a user set up and isn't using the root account. You may need to tweak your override file or not use it if you encounter file permission issues.
-3. Run `docker-compose up` in the root of the project to start the docker containers
-4. Run `docker-compose run composer composer install` to Composer packages
+3. **Apple Silicon-based Macs only:** Copy the `/docker-compose.override-mac-apple-silicon.yml` file to `/docker-compose.override.yml`
+4. Run `docker-compose up` in the root of the project to start the docker containers
+5. Run `docker-compose run composer composer install` to Composer packages
     * 🤩 Add yourself to the authors listed in the composer.json file!
-5. Run `docker-compose run npm npm install` to install node packages
-6. Run `docker-compose run vite npm run build` to generate frontend assets
-7. Run `docker-compose exec laravel php artisan key:generate` to generate application encryption keys
-8. Run `docker-compose exec laravel php artisan migrate --seed` to create and populate the database
-9. Once that's all finished, the application should be visible at [http://localhost:35080](http://localhost:35080)
+6. Run `docker-compose run npm npm install` to install node packages
+7. Run `docker-compose run vite npm run build` to generate frontend assets
+8. Run `docker-compose exec laravel php artisan key:generate` to generate application encryption keys
+9. Run `docker-compose exec laravel php artisan migrate --seed` to create and populate the database
+10. Once that's all finished, the application should be visible at [http://localhost:35080](http://localhost:35080)
 
 ### Composer
 
@@ -171,7 +172,7 @@ You can also use `docker-compose exec laravel ./vendor/bin/pint -v` to run Larav
 #### Prettier
 
 [Prettier](https://prettier.io) is installed and configured to enforce an opinionated code standard
-for JS, CSS, JSON and Markdown files in this project. You should ensure Pint is run before you make a commit.
+for JS, CSS, JSON and Markdown files in this project. You should ensure Prettier is run before you make a commit.
 
 PhpStorm is configured to run Prettier on save and on reformat. You should configure PhpStorm to use the node.js
 interpreter provided by Docker for this project (Settings/Preferences > Languages > node.js > Node Interpreter: In the
@@ -189,6 +190,12 @@ PhpStorm should highlight errors in code.
 
 You can use `docker-compose run npm npm run lint:js` to run ESLint, `docker-compose run npm npm run lint:style` to run
 Stylelint, or `docker-compose run npm npm run lint` to run both along with a Prettier check.
+
+#### Markdown Notifications
+Indentation can break the Markdown formatting of notification views. You should ensure that you do not reformat these particular blade files. 
+
+### Writing content
+There'll be times when you need to write user-facing messages such as status and error messages. Follow the spirit of the [NHS's content style](https://service-manual.nhs.uk/content/how-we-write) when doing this. Keep it clear and concise. Use punctuation and a spell checker.
 
 ### Review process
 

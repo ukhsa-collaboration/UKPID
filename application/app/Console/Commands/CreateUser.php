@@ -2,15 +2,17 @@
 
 namespace App\Console\Commands;
 
-use App\Constants\Locations;
+use App\Enums\Locations;
+use App\Events\UserCreated;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
+use Spatie\Permission\Models\Role;
+
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
-use Spatie\Permission\Models\Role;
 
 class CreateUser extends Command
 {
@@ -50,11 +52,11 @@ class CreateUser extends Command
 
         $location = select(
             label: 'Where is the user based?',
-            options: array_flip(Locations::all()),
+            options: Locations::names(),
         );
 
         $role = select(
-            label: 'What is the role of the user?',
+            label: "What is the user's role?",
             options: Role::all()->pluck('name', 'id'),
         );
 
@@ -68,8 +70,10 @@ class CreateUser extends Command
             }
         );
 
+        $temporaryPassword = false;
         if (empty($password)) {
-            $password = Str::password();
+            $temporaryPassword = true;
+            $password = Str::password(8, symbols: false);
         }
 
         $user = User::create([
@@ -81,13 +85,20 @@ class CreateUser extends Command
 
         $user->assignRole($role);
 
+        UserCreated::dispatch($user, $temporaryPassword ? $password : false);
+
         $this->info('User created!');
         $this->newLine();
         $this->line('ID: '.$user->id);
         $this->line('Name: '.$user->name);
         $this->line('Email: '.$user->email);
-        $this->line('Location: '.$user->location['key']);
+        $this->line('Location: '.$user->location->name);
         $this->line('Role: '.$user->getRoleNames()->implode(', '));
         $this->line('Password: '.$password);
+
+        if ($temporaryPassword) {
+            $this->newLine();
+            $this->line('These credentials have been emailed to the user.');
+        }
     }
 }

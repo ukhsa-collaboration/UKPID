@@ -2,7 +2,7 @@
     <h1 class="auth-title">{{ __('Recover your account') }}</h1>
 
     <!-- Session Status -->
-    <x-auth-session-status :status="session('status')"/>
+    <x-message.success :message="session('status')"/>
 
     @if(!session('status'))
         <form method="POST" action="{{ route('password.email') }}">

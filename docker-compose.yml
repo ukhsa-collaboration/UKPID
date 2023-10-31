@@ -19,6 +19,13 @@ services:
       - db
       - mailpit
 
+  queue:
+    extends: laravel
+    command: "php artisan queue:listen -v --tries=2"
+    depends_on:
+      - db
+      - mailpit
+
   web:
     image: nginx:1-alpine
     restart: unless-stopped
@@ -46,7 +53,6 @@ services:
     image: 'selenium/standalone-chrome'
     profiles:
       - test
-    platform: 'linux/amd64'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     volumes:
@@ -64,7 +70,7 @@ services:
 
   # Developer tools
   mailpit:
-    image: axllent/mailpit:latest
+    image: axllent/mailpit:v1.9
     restart: unless-stopped
     ports:
       - "127.0.0.1:35082:8025" # web ui

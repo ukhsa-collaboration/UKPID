@@ -3,8 +3,12 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Notifications\AccountCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Laravel\Passport\Passport;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
@@ -22,7 +26,7 @@ class AuthTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('login'));
+        $response = $this->actingAs($user, 'web')->get(route('login'));
 
         $response->assertRedirect('/');
     }
@@ -138,5 +142,36 @@ class AuthTest extends TestCase
 
         $response->assertRedirect('/');
         $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_new_user_is_forced_to_change_their_temporary_password(): void
+    {
+        $admin = User::factory()->create();
+        $admin->syncRoles('Administrator');
+
+        Passport::actingAs($admin);
+
+        Notification::fake();
+
+        // Create the user
+        $response = $this->postJson('/api/user/', [
+            'name' => fake()->name(),
+            'email' => fake()->unique()->email(),
+            'role' => Role::firstWhere('name', 'User')->id,
+        ]);
+
+        $response->assertStatus(201);
+
+        $newUser = User::firstWhere('email', $response->json()['user']['email']);
+        Notification::assertSentTo([$newUser], AccountCreated::class);
+
+        // Sign in as them
+        $response = $this->post(route('login'), [
+            'email' => $response->json()['user']['email'],
+            'password' => $response->json()['password'],
+        ]);
+
+        // Follow the redirects to end up at the change password page
+        $this->followRedirects($response)->assertSee('Change Password');
     }
 }
