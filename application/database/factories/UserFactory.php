@@ -2,7 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Constants\Locations;
+use App\Enums\Locations;
+use App\Events\UserCreated;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -20,15 +21,13 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $locations = Locations::all();
-
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
-            'location' => array_rand(array_values($locations)),
+            'location' => array_rand(array_flip(Locations::names())),
         ];
     }
 
@@ -40,12 +39,13 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Indicate that the user is suspended.
      */
-    public function unverified(): static
+    public function withCreatedEvent(string $password = 'password'): Factory
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(fn (array $attributes) => [])
+            ->afterCreating(function (User $user) use ($password) {
+                UserCreated::dispatch($user, $password);
+            });
     }
 }

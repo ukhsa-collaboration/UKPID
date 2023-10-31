@@ -27,16 +27,20 @@ class RoleSeeder extends Seeder
 
         $role->givePermissionTo([
             'user.create',
+            'user.read',
             'user.update',
             'user.delete',
             'user.update_self',
-            'user.assign_role',
+            'role.assign.manager',
+            'role.assign.user',
         ]);
     }
 
     private function userRole()
     {
-        $role = Role::updateOrCreate(['name' => 'User']);
+        $role = Role::updateOrCreate([
+            'name' => 'User',
+        ]);
 
         $role->givePermissionTo([
             'user.update_self',

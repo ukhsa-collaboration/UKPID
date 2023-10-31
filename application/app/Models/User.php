@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Constants\Locations;
+use App\Enums\Locations;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -50,10 +50,12 @@ class User extends Authenticatable
     protected function location(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value): array => [
-                'id' => $value,
-                'key' => array_search($value, Locations::all()),
-            ],
+            get: fn (string $value): Locations => constant('\App\Enums\Locations::'.$value)
         );
+    }
+
+    public function forcedPasswordChange(): HasOne
+    {
+        return $this->hasOne(ForcedPasswordChange::class);
     }
 }

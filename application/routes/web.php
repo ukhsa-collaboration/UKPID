@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckTemporaryPasswordMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware([CheckTemporaryPasswordMiddleware::class])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('welcome');
 });
 
 require __DIR__.'/auth.php';
+require __DIR__.'/passport.php';

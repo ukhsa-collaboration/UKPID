@@ -24,7 +24,7 @@ class AuthTest extends DuskTestCase
         ]);
     }
 
-    public function test_that_the_login_page_logs_the_user_in(): void
+    public function test_the_login_page_logs_the_user_in(): void
     {
         $user = $this->getTestUser();
 
@@ -39,7 +39,7 @@ class AuthTest extends DuskTestCase
         });
     }
 
-    public function test_that_the_user_can_request_a_password_reset(): void
+    public function test_the_user_can_request_a_password_reset(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(route('login'))
@@ -54,7 +54,7 @@ class AuthTest extends DuskTestCase
         });
     }
 
-    public function test_that_the_user_can_reset_their_password_reset(): void
+    public function test_the_user_can_reset_their_password_reset(): void
     {
         // Create a reset token
         $user = $this->getTestUser();

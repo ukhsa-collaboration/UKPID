@@ -1,5 +1,10 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
+    <option name="DO_NOT_FORMAT">
+      <list>
+        <fileSet type="globPattern" pattern="views/mail/**/*.blade.php" />
+      </list>
+    </option>
     <PHPCodeStyleSettings>
       <option name="CONCAT_SPACES" value="false" />
       <option name="PHPDOC_PARAM_SPACES_BETWEEN_TAG_AND_TYPE" value="2" />

@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Constants\Locations;
+use App\Enums\Locations;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -15,12 +15,10 @@ class ValidLocation implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $locations = Locations::all();
+        $locations = Locations::names();
 
         if (! in_array($value, $locations)) {
             $fail('The :attribute must be a valid location.');
         }
-
-        // TODO: add clause to check If user has permission to manage users outside of their trust
     }
 }
