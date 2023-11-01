@@ -9,7 +9,7 @@ use App\Migration\DbWriter;
 class ImportEnquiries extends Command
 {
     private DbWriter $dbWriter;
-    protected $signature = 'enquiries:import {outputDir=output : The directory containing the split CSV files}';
+    protected $signature = 'enquiries:import {inputDir=input : The directory containing the split CSV files}';
     protected $description = 'Import split CSV files into MongoDB';
 
     public function __construct()
@@ -20,26 +20,26 @@ class ImportEnquiries extends Command
 
     public function handle()
     {
-        $outputDir = $this->argument('outputDir');
+        $inputDir = $this->argument('inputDir');
 
-        if (!is_dir($outputDir)) {
-            $this->error("The provided directory {$outputDir} does not exist!");
+        if (!is_dir($inputDir)) {
+            $this->error("The provided directory {$inputDir} does not exist!");
             return;
         }
 
-        $splitFiles = array_diff(scandir($outputDir), ['..', '.']);
+        $splitFiles = array_diff(scandir($inputDir), ['..', '.']);
 
         if (empty($splitFiles)) {
-            $this->info("No CSV files found in the $outputDir");
+            $this->info("No CSV files found in the $inputDir");
             return;
         }
 
         foreach ($splitFiles as $file) {
-            $data = CsvReader::execute("{$outputDir}/{$file}");
+            $data = CsvReader::execute("{$inputDir}/{$file}");
             $this->info("Importing $file");
             $this->dbWriter->write($data);
         }
 
-        $this->info("All CSV files in {$outputDir} have been successfully imported");
+        $this->info("All CSV files in {$inputDir} have been successfully imported");
     }
 }

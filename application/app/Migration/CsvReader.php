@@ -12,6 +12,10 @@ class CsvReader
         $headers = mb_convert_encoding($headers, 'UTF-8', 'ISO-8859-1');
         // strip all control characters and extended ASCII characters e.g. BOM
         $headers[0] = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $headers[0]);
+        // camel case
+        $headers = array_map(function ($v) {
+            return lcfirst(str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', strtolower($v)))));
+        }, $headers);
 
         $enquiries = [];
         $currentEnquiry = [];
@@ -19,6 +23,7 @@ class CsvReader
 
         while (!feof($handle) && $enquiryNumber <= $maxEnquiries) {
 
+            // https://gist.github.com/jbratu/29b3ba6133fd17285b9fff665fada315
             $row = fgetcsv($handle);
             $row = mb_convert_encoding($row, 'UTF-8', 'ISO-8859-1');
             if (!is_array($row)) {
@@ -50,11 +55,26 @@ class CsvReader
         return $enquiries;
     }
 
+    private static function splitValueIfNeeded($value)
+    {
+        $specialCharacters = ["ü", "Ã¼"];
+
+        foreach ($specialCharacters as $specialChar) {
+            if (str_contains($value, $specialChar)) {
+                return explode($specialChar, $value);
+            }
+        }
+
+        return $value;
+    }
+
+
     private static function createEnquiry($headers, $row) : array
     {
         $enquiry = [];
         foreach ($row as $i => $v) {
-            $enquiry[$headers[$i]] = trim($v);
+            $trimmedValue = trim($v);
+            $enquiry[$headers[$i]] = self::splitValueIfNeeded($trimmedValue);
         }
         return $enquiry;
     }
@@ -62,21 +82,31 @@ class CsvReader
     private static function extendEnquiry($currentEnquiry, $headers, $row) : array
     {
         foreach ($row as $i => $v) {
-            $v = trim($v);
-            if (empty($v)) {
+            $trimmedValue = trim($v);
+            if (empty($trimmedValue)) {
                 continue;
             }
 
             $header = $headers[$i];
+            $splitValues = self::splitValueIfNeeded($trimmedValue);
+
+            // ensure $splitValues and $currentEnquiry[$header] are both arrays, then merge them
+            if (!is_array($splitValues)) {
+                $splitValues = [$splitValues];
+            }
+
             if (empty($currentEnquiry[$header])) {
-                $currentEnquiry[$header] = $v;
+                $currentEnquiry[$header] = $splitValues;
             } else {
                 if (!is_array($currentEnquiry[$header])) {
                     $currentEnquiry[$header] = [$currentEnquiry[$header]];
                 }
-                $currentEnquiry[$header][] = $v;
+                $currentEnquiry[$header] = array_merge($currentEnquiry[$header], $splitValues);
             }
         }
+
         return $currentEnquiry;
     }
+
+
 }
