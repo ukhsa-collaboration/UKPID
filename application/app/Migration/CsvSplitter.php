@@ -4,7 +4,7 @@ namespace App\Migration;
 
 class CsvSplitter
 {
-    public static function execute($inputFile, $outputDir, $enquiriesPerFile = 1000, $maxFileCount = 100) : void
+    public static function execute($inputFile, $outputDir, $enquiriesPerFile = 10, $maxFileCount = 10) : void
     {
         $handle = self::openCsv($inputFile);
         $headers = fgetcsv($handle);
@@ -67,7 +67,7 @@ class CsvSplitter
 
     private static function shouldSwitchFile($currentFile, $enquiryCount, $enquiriesPerFile) : bool
     {
-        return $currentFile === null || $enquiryCount > $enquiriesPerFile;
+        return $currentFile === null || $enquiryCount % $enquiriesPerFile == 0 && $enquiryCount != 0;
     }
 
     private static function switchFile($currentFile, $outputDir, $fileCount, $headers)

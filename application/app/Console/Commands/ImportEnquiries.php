@@ -52,6 +52,10 @@ class ImportEnquiries extends Command
             return;
         }
 
+        usort($splitFiles, function($a, $b) {
+            return (int) str_replace('split_', '', $a) - (int) str_replace('split_', '', $b);
+        });
+
         foreach ($splitFiles as $file) {
             $filePath = "{$processingDir}/{$file}";
             try {
