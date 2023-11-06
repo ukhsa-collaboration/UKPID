@@ -10,4 +10,14 @@ class Enquiry extends Model {
     protected $collection = 'Enquiries';
 
     protected $guarded = [];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName() : string
+    {
+        return 'key';
+    }
 }
