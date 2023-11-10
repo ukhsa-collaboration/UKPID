@@ -62,6 +62,14 @@ class UserController extends Controller
     }
 
     /**
+     * Get current user
+     */
+    public function me(Request $request)
+    {
+        return new UserResource($request->user());
+    }
+
+    /**
      * Update a user.
      */
     public function update(Request $request, User $user)

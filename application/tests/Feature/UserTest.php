@@ -79,6 +79,39 @@ class UserTest extends TestCase
         $response->assertStatus(401);
     }
 
+    public function test_the_user_me_route_returns_a_user(): void
+    {
+        $users = User::factory()->count(2)->create();
+
+        $admin = $users->last();
+        $admin->syncRoles('Administrator');
+
+        Passport::actingAs($admin);
+
+        $response = $this->getJson('/api/user/me');
+
+        $response->assertStatus(200);
+        $response
+            ->assertJson(fn (AssertableJson $json) => $json
+                ->has('data', fn (AssertableJson $json) => $json
+                    ->has('id')
+                    ->where('name', $admin->name)
+                    ->where('email', $admin->email)
+                    ->has('location')
+                    ->has('role')
+                    ->has('created_at')
+                    ->has('updated_at')
+                    ->etc()
+                )
+            );
+    }
+
+    public function test_the_user_me_route_returns_unauthorized_when_unauthenticated(): void
+    {
+        $response = $this->getJson('/api/user/me');
+        $response->assertStatus(401);
+    }
+
     public function test_the_user_create_route_successfully_creates_a_user(): void
     {
         $admin = User::factory()->create([
