@@ -12,6 +12,7 @@ class ImportEnquiries extends Command
     private DbWriter $dbWriter;
     protected $signature = 'enquiry:import
                         {inputDir : The directory to process}
+                        {files=50 : The number of files to process (default: 50)}
                         {--reprocess-errors : Reprocess files that are in the error directory}';
 
     protected $description = 'Import split CSV files into MongoDB';
@@ -28,6 +29,7 @@ class ImportEnquiries extends Command
         $archiveDir = $inputDir . '/archive';
         $errorDir = $inputDir . '/error';
         $reprocessErrors = $this->option('reprocess-errors');
+        $filesToProcess = $this->argument('files'); // Get the number of files to process
 
         // Check for required directories and create if necessary
         if (!is_dir($inputDir)) {
@@ -56,7 +58,12 @@ class ImportEnquiries extends Command
             return (int) str_replace('split_', '', $a) - (int) str_replace('split_', '', $b);
         });
 
+        $processedCount = 0;
         foreach ($splitFiles as $file) {
+            if ($processedCount >= $filesToProcess) {
+                break; // Stop processing if the specified number of files have been processed
+            }
+
             $filePath = "{$processingDir}/{$file}";
             try {
                 $data = CsvReader::execute($filePath);
@@ -64,6 +71,7 @@ class ImportEnquiries extends Command
                 $this->dbWriter->write($data);
                 // Move to archive if write is successful
                 rename($filePath, "{$archiveDir}/{$file}");
+                $processedCount++; // Increment the processed file count
             } catch (\Exception $exception) {
                 if (!$reprocessErrors) {
                     // move to error if there's an exception and we're not reprocessing errors
@@ -74,7 +82,7 @@ class ImportEnquiries extends Command
             }
         }
 
-        $this->info("All CSV files in {$processingDir} have been processed");
+        $this->info("Processed $processedCount files in {$processingDir}");
     }
 
     protected function getOptions()
