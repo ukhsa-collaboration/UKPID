@@ -60,7 +60,9 @@ services:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
+      - ./docker/mongodb/db_dump.gz:/docker-entrypoint-initdb.d/db_dump.gz
     command: [--auth]
+
 
   # Application testing
   selenium:
