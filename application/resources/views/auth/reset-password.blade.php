@@ -2,7 +2,7 @@
     <h1 class="auth-title">{{ __('Reset Password') }}</h1>
 
     <!-- Session Status -->
-    <x-auth-session-status :status="session('status')"/>
+    <x-message.success :message="session('status')"/>
 
     <form method="POST" action="{{ route('password.store') }}">
         @csrf

@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Rules\ValidLocation;
+use App\Rules\ValidRole;
 use Illuminate\Foundation\Http\FormRequest;
+use Spatie\Permission\Models\Role;
 
 class StoreUserRequest extends FormRequest
 {
@@ -12,7 +14,13 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        $role = Role::findOrFail($this->request->get('role'));
+
+        return $this->user()->can('role.assign.'.str()->snake($role->name))
+            && (
+                $this->user()->can('user.create_outside_location')
+                || ($this->user()->can('user.create') && (! $this->request->has('location') || $this->request->get('location') === $this->user()->location->id))
+            );
     }
 
     /**
@@ -24,8 +32,9 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'email' => ['required', 'email'],
-            'location' => ['required', 'integer', new ValidLocation],
+            'email' => ['required', 'email', 'unique:users'],
+            'location' => ['sometimes', 'string', new ValidLocation],
+            'role' => ['required', 'integer', new ValidRole],
         ];
     }
 }

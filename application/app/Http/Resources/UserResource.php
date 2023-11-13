@@ -19,7 +19,9 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             /** @var array{id: int, key: string} $location */
-            'location' => $this->location,
+            'location' => $this->location->name,
+            /** @var array{string} $role */
+            'role' => $this->getRoleNames(),
             /** @var string $created_at */
             'created_at' => $this->created_at,
             /** @var string $updated_at */

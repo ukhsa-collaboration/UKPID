@@ -156,15 +156,20 @@ a {
   color: var(--danger);
 }
 
-.auth-session-status {
+.message {
   font-size: var(--type-ramp-minus-1-font-variations);
   line-height: var(--type-ramp-minus-1-line-height);
-  color: var(--success);
   margin-bottom: fns.gap(1);
 }
 
-.message-with-icon {
-  // display: flex;
-  // align-items: center;
-  // gap: 0.25em;
+.message-with-icon .ukpid-icon {
+  margin-right: 0.25em;
+}
+
+.message--success {
+  color: var(--success);
+}
+
+.message--warning {
+  color: var(--warning);
 }

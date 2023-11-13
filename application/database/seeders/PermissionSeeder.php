@@ -26,13 +26,18 @@ class PermissionSeeder extends Seeder
 
         // Provide role descriptions via language translations in lang/<locale>/permissions.php
         $permissions = [
-            'user.read',
             'user.create',
+            'user.read',
             'user.update',
             'user.delete',
+            'user.create_outside_location',
             'user.read_outside_location',
+            'user.update_outside_location',
+            'user.delete_outside_location',
             'user.update_self',
-            'user.assign_role',
+            'role.assign.administrator',
+            'role.assign.manager',
+            'role.assign.user',
         ];
 
         foreach ($permissions as $permission) {

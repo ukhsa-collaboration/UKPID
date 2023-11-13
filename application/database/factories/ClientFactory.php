@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Passport\Client;
-use Laravel\Passport\Database\Factories\ClientFactory as PassportClientFactory;
 use Illuminate\Support\Str;
+use Laravel\Passport\Database\Factories\ClientFactory as PassportClientFactory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -32,4 +32,3 @@ class ClientFactory extends PassportClientFactory
         ]);
     }
 }
-

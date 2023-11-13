@@ -134,6 +134,8 @@ phpunit:
         MYSQL_ROOT_PASSWORD: "laravel"
         MYSQL_USER: "laravel"
         MYSQL_PASSWORD: "laravel"
+    - name: axllent/mailpit:v1.9
+      alias: mailpit
   needs:
     - job: composer
       artifacts: true
@@ -176,6 +178,8 @@ dusk:
         MYSQL_ROOT_PASSWORD: "laravel"
         MYSQL_USER: "laravel"
         MYSQL_PASSWORD: "laravel"
+    - name: axllent/mailpit:v1.9
+      alias: mailpit
     - name: selenium/standalone-chrome:latest
       alias: selenium
   variables:

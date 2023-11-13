@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         Passport::hashClientSecrets();
         Passport::useClientModel(Client::class);
-        Passport::tokensExpireIn(now()->addDays(1));
+        Passport::tokensExpireIn(now()->addHours(6));
         Passport::refreshTokensExpireIn(now()->addMonths(6));
 
         // Allow the Administrators to pass all permission checks
