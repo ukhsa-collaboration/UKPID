@@ -38,30 +38,30 @@ provideFluentDesignSystem().register(
 /**
  * App styles
  */
-const app = document.getElementById("ukpid");
+const root = document.getRootNode();
 
-typeRampMinus2FontSize.setValueFor(app, "0.625rem"); // 10px
-typeRampMinus1FontSize.setValueFor(app, "1rem"); // 12px
-typeRampBaseFontSize.setValueFor(app, "0.85rem"); // 14px
-typeRampPlus1FontSize.setValueFor(app, "1rem"); // 16px
-typeRampPlus2FontSize.setValueFor(app, "1.25rem"); // 20px
-typeRampPlus3FontSize.setValueFor(app, "1.5rem"); // 24px
-typeRampPlus4FontSize.setValueFor(app, "1.75rem"); // 28px
-typeRampPlus5FontSize.setValueFor(app, "2rem"); // 32px
-typeRampPlus6FontSize.setValueFor(app, "2.5rem"); // 40px
+typeRampMinus2FontSize.setValueFor(root, "0.625rem"); // 10px
+typeRampMinus1FontSize.setValueFor(root, "1rem"); // 12px
+typeRampBaseFontSize.setValueFor(root, "0.85rem"); // 14px
+typeRampPlus1FontSize.setValueFor(root, "1rem"); // 16px
+typeRampPlus2FontSize.setValueFor(root, "1.25rem"); // 20px
+typeRampPlus3FontSize.setValueFor(root, "1.5rem"); // 24px
+typeRampPlus4FontSize.setValueFor(root, "1.75rem"); // 28px
+typeRampPlus5FontSize.setValueFor(root, "2rem"); // 32px
+typeRampPlus6FontSize.setValueFor(root, "2.5rem"); // 40px
 
-typeRampMinus2LineHeight.setValueFor(app, "0.875rem"); // 14px
-typeRampMinus1LineHeight.setValueFor(app, "1rem"); // 16px
-typeRampBaseLineHeight.setValueFor(app, "1.25rem"); // 20px
-typeRampPlus1LineHeight.setValueFor(app, "1.375rem"); // 22px
-typeRampPlus2LineHeight.setValueFor(app, "1.625rem"); // 26px
-typeRampPlus3LineHeight.setValueFor(app, "2rem"); // 32px
-typeRampPlus4LineHeight.setValueFor(app, "2.25rem"); // 36px
-typeRampPlus5LineHeight.setValueFor(app, "2.5rem"); // 40px
-typeRampPlus6LineHeight.setValueFor(app, "3.25rem"); // 52px
+typeRampMinus2LineHeight.setValueFor(root, "0.875rem"); // 14px
+typeRampMinus1LineHeight.setValueFor(root, "1rem"); // 16px
+typeRampBaseLineHeight.setValueFor(root, "1.25rem"); // 20px
+typeRampPlus1LineHeight.setValueFor(root, "1.375rem"); // 22px
+typeRampPlus2LineHeight.setValueFor(root, "1.625rem"); // 26px
+typeRampPlus3LineHeight.setValueFor(root, "2rem"); // 32px
+typeRampPlus4LineHeight.setValueFor(root, "2.25rem"); // 36px
+typeRampPlus5LineHeight.setValueFor(root, "2.5rem"); // 40px
+typeRampPlus6LineHeight.setValueFor(root, "3.25rem"); // 52px
 
-fillColor.setValueFor(app, neutralLayer1);
-baseLayerLuminance.setValueFor(app, StandardLuminance.LightMode);
+fillColor.setValueFor(root, neutralLayer1);
+baseLayerLuminance.setValueFor(root, StandardLuminance.LightMode);
 
 /**
  * Inputs

@@ -14,9 +14,10 @@
     {{-- Scripts --}}
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>
-<body>
-<div id="ukpid">
-{{ $slot }}
+<body class="layout {{ str_contains($_SERVER['HTTP_USER_AGENT'], 'Electron') ? 'is-electron' : 'is-browser' }}">
+<div class="layout__title-bar"></div>
+<div class="layout__body">
+    {{ $slot }}
 </div>
 </body>
 </html>

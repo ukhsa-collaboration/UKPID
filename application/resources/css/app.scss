@@ -11,22 +11,19 @@ html {
 }
 
 body {
-  height: 100%;
-  width: 100%;
-}
-
-#ukpid {
   --app-gap: #{fns.gap(0.5)};
 
+  height: 100%;
+  width: 100%;
   font-family: var(--body-font);
   font-size: var(--type-ramp-base-font-size);
   line-height: var(--type-ramp-base-line-height);
   background-color: var(--fill-color);
   color: var(--neutral-foreground-rest);
-  height: 100%;
-  width: 100%;
   word-break: break-word;
   hyphens: auto;
+  overflow: hidden;
+  user-select: none;
 
   @media screen and (min-width: breakpoints.$xs) {
     word-break: normal;
@@ -42,10 +39,45 @@ body {
   }
 }
 
+.is-electron .layout__body {
+  opacity: 0;
+  animation: fade-in 0.2s cubic-bezier(0, 0, 0, 1) forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 *,
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+.layout__title-bar {
+  background-color: var(--neutral-layer-2);
+  height: env(titlebar-area-height, 0);
+  position: absolute;
+  top: env(titlebar-area-y, 0);
+  width: 100%;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+
+.layout__body {
+  position: absolute;
+  top: env(titlebar-area-height, 0);
+  left: 0;
+  width: 100%;
+  height: calc(100% - env(titlebar-area-height, 0));
+  padding: var(--container-x-padding) 0;
+  overflow: auto;
 }
 
 @for $i from 1 through 6 {
@@ -172,4 +204,13 @@ a {
 
 .message--warning {
   color: var(--warning);
+}
+
+.button-group {
+  display: flex;
+  gap: fns.gap(0.5);
+}
+
+.button-group--align-right {
+  justify-content: flex-end;
 }

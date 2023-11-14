@@ -16,9 +16,12 @@
                 <x-input-error :messages="$errors->get('email')"/>
             </x-forms.group>
 
-            <div>
-                <fluent-button appearance="accent" class="full-width"
-                               type="submit" dusk="submit">{{ __('Email Password Reset Link') }}</fluent-button>
+            <div class="button-group button-group--align-right">
+                <fluent-button appearance="neutral"
+                               type="button" dusk="back"
+                               onclick="window.location.href = '{{ route('login') }}'">{{ __('Back') }}</fluent-button>
+                <fluent-button appearance="accent"
+                               type="submit" dusk="submit">{{ __('Next') }}</fluent-button>
             </div>
         </form>
     @else

@@ -4,5 +4,8 @@
     "browser": true,
     "node": true
   },
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
   "extends": ["airbnb/base", "prettier"]
 }
