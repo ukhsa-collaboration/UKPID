@@ -41,7 +41,6 @@ class CsvSplitter
         self::closeFile($handle);
     }
 
-    // todo return type of resource?
     private static function openCsv($inputFile)
     {
         $handle = fopen($inputFile, 'r');

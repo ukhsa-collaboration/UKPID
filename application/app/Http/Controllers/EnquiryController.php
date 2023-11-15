@@ -32,7 +32,7 @@ class EnquiryController extends Controller
 
     public function update(Request $request, Enquiry $enquiry)
     {
-        // todo validate
+        // see app/Http/Requests/EnquiryRequest
         // $validatedData = $request->validate($request->toArray());
         $enquiry->update($request->toArray());
         return new EnquiryResource($enquiry);

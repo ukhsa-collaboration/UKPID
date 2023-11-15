@@ -12,7 +12,7 @@ class ImportEnquiries extends Command
     private DbWriter $dbWriter;
     protected $signature = 'enquiry:import
                         {inputDir : The directory to process}
-                        {files=50 : The number of files to process (default: 50)}
+                        {files=20 : The number of files to process (default: 20)}
                         {--reprocess-errors : Reprocess files that are in the error directory}';
 
     protected $description = 'Import split CSV files into MongoDB';

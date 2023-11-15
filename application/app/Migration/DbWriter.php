@@ -2,9 +2,7 @@
 
 namespace App\Migration;
 
-use App\Http\Requests\EnquiryRequest;
 use App\Models\Enquiry;
-use Illuminate\Support\Facades\Validator;
 
 class DbWriter
 {
@@ -12,13 +10,6 @@ class DbWriter
     {
         $timestamp = now()->toDateTimeString();
         $dataWithTimestamps = array_map(function($enquiryData) use ($timestamp) {
-
-            /** todo rethink this
-            $validator = Validator::make($enquiryData, EnquiryRequest::rules());
-            if ($validator->fails()) {
-                // Handle the failed validation here, for example, throw an exception or log the errors.
-                throw new \Exception('Validation failed: ' . json_encode($validator->errors()));
-            }*/
 
             return array_merge(
                 $enquiryData,

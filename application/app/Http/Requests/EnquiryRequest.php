@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-// todo rethink this
 class EnquiryRequest extends FormRequest
 {
     /**
@@ -48,6 +47,7 @@ class EnquiryRequest extends FormRequest
             ];
         }
 
+        // for help generating these, see EnquiryRulesGenerator
         $otherRules = [
             '_id' => '',
             'key' => 'string',
