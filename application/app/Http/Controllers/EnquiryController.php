@@ -17,8 +17,10 @@ class EnquiryController extends Controller
 
     public function store(Request $request)
     {
-        // todo validate
-        // $validatedData = $request->validate($request->toArray());
+        $request->validate([
+            'key' => 'required|unique:mongodb.Enquiries', // assuming 'enquiries' is your table name
+        ]);
+
         $enquiry = Enquiry::create($request->toArray());
         return new EnquiryResource($enquiry);
     }
