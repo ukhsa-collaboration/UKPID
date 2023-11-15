@@ -37,7 +37,7 @@ columns.
 
 These probably won't need to be run again, but in case they are:
 
-`add-headers.php` to create a file filled with headers and fill each row with corresponding empty values
+`add-headers.php` to create a file filled with headers and fill each row with corresponding empty values \
 `fill-key.php` to fill the primary key with data
 
 The paths to the files for these need to be hardcoded.
