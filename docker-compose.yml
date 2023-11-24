@@ -56,8 +56,6 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
     restart: unless-stopped
-    ports:
-      - "27017:27017"
     volumes:
       - mongodb_data:/data/db
       - ./docker/mongodb/db_dump.gz:/docker-entrypoint-initdb.d/db_dump.gz
