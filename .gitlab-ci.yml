@@ -30,7 +30,7 @@ workflow:
 
 composer:
   stage: preparation
-  image: composer:2
+  image: ${CI_REGISTRY_IMAGE}/laravel:latest
   script:
     - cd ./application
     - composer install

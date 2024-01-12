@@ -164,6 +164,7 @@
       <path value="$PROJECT_DIR$/application/vendor/league/event" />
       <path value="$PROJECT_DIR$/application/vendor/league/oauth2-server" />
       <path value="$PROJECT_DIR$/application/vendor/league/uri-interfaces" />
+      <path value="$PROJECT_DIR$/application/vendor/carbonphp/carbon-doctrine-types" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

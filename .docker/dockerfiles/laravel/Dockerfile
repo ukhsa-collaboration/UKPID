@@ -1,11 +1,11 @@
 #########
 # Build and push this docker image to the gitlab docker registry when updated to ensure an accurate CI/CD pipeline
 #
-# docker build -t registry.gitlab.com/juicy-media-ltd/ukpid/ukpid-backend/laravel .docker/dockerfiles/laravel
+# docker build -t registry.gitlab.com/juicy-media-ltd/ukpid/ukpid-backend/laravel . -f .docker/dockerfiles/laravel/Dockerfile
 # docker push registry.gitlab.com/juicy-media-ltd/ukpid/ukpid-backend/laravel
 #########
 
-FROM php:8.2-fpm-alpine
+FROM php:8.3-fpm-alpine
 
 RUN apk add --no-cache \
     linux-headers \
@@ -19,6 +19,7 @@ RUN apk add --no-cache \
     $PHPIZE_DEPS
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+
 RUN docker-php-ext-install  \
     pdo \
     pdo_mysql \
@@ -30,7 +31,15 @@ RUN docker-php-ext-install  \
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini";
 
+# Copy the laravel files
+COPY application /var/www/html/
+VOLUME ["/var/www/html"]
+
+# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
+RUN composer install --no-interaction
 
 ARG WITH_XDEBUG=false
 
