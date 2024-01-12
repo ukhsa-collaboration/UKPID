@@ -14,6 +14,10 @@
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
+Route::get('/status', function () {
+    return response('Success');
+});
+
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user/me', [UserController::class, 'me']);
     Route::apiResource('user', UserController::class);
