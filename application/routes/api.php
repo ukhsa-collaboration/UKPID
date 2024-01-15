@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EnquiryController;
 
 Route::get('/status', function () {
     return response('Success');
@@ -24,3 +25,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::apiResource('role', RoleController::class)->only(['index']);
 });
+
+// API resource routes for Enquiry
+Route::apiResource('enquiries', EnquiryController::class)
+    ->parameters(['enquiries' => 'enquiry:key']);

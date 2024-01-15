@@ -16,6 +16,7 @@ services:
       - ./.docker/.laravel:/root
     depends_on:
       - db
+      - mongo
       - mailpit
 
   queue:
@@ -46,6 +47,21 @@ services:
       - "35081:3306"
     volumes:
       - ./.docker/.mysql:/var/lib/mysql
+
+  mongo:
+    image: mongo:7.0.2
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    restart: unless-stopped
+    ports:
+      - "35017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./docker/mongodb/db_dump.gz:/docker-entrypoint-initdb.d/db_dump.gz
+    command: [--auth]
+
 
   # Application testing
   selenium:
@@ -108,3 +124,5 @@ services:
       - ./application:/usr/src/app/
     command:
       npm install
+volumes:
+  mongodb_data:
