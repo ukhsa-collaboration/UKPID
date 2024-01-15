@@ -69,19 +69,19 @@ The actual application is contained within the `/application` directory.
 3. **Apple Silicon-based Macs only:** Copy the `/docker-compose.override-mac-apple-silicon.yml` file
    to `/docker-compose.override.yml`
 4. Run `docker-compose up` in the root of the project to start the docker containers
-5. Run `docker-compose run composer composer install` to Composer packages
-    * 🤩 Add yourself to the authors listed in the composer.json file!
 5. Run `docker-compose run npm npm install` to install node packages
 6. Run `docker-compose run vite npm run build` to generate frontend assets
 7. Run `docker-compose exec laravel php artisan key:generate` to generate application encryption keys
 8. Run `docker-compose exec laravel php artisan migrate --seed` to create and populate the database
 9. Once that's all finished, the application should be visible at [http://localhost:35080](http://localhost:35080)
 
+🤩 Add yourself to the authors listed in the composer.json file!
+
 ### Composer
 
-A Composer docker container is provided for PHP package management.
+Composer is included in the Laravel Docker image for PHP package management.
 
-To interact with it, use `docker-compose run composer composer <command>`.
+To interact with it, use `docker-compose run laravel composer <command>`.
 
 ### NPM
 

@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/application/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/application/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/application/tests" isTestSource="true" packagePrefix="Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/brick/math" />
@@ -131,6 +132,9 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/dusk" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/php-webdriver/webdriver" />
+      <excludeFolder url="file://$MODULE_DIR$/application/storage/framework" />
+      <excludeFolder url="file://$MODULE_DIR$/application/storage/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/carbonphp/carbon-doctrine-types" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

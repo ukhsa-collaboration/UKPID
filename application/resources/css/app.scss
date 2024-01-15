@@ -39,11 +39,6 @@ body {
   }
 }
 
-.is-electron .layout__body {
-  opacity: 0;
-  animation: fade-in 0.2s cubic-bezier(0, 0, 0, 1) forwards;
-}
-
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -78,6 +73,11 @@ body {
   height: calc(100% - env(titlebar-area-height, 0));
   padding: var(--container-x-padding) 0;
   overflow: auto;
+}
+
+.is-electron .layout__body {
+  opacity: 0;
+  animation: fade-in 0.2s cubic-bezier(0, 0, 0, 1) forwards;
 }
 
 @for $i from 1 through 6 {
