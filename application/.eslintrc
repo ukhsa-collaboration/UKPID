@@ -7,5 +7,23 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "extends": ["airbnb/base", "prettier"]
+  "plugins": [
+    "prefer-arrow-functions"
+  ],
+  "extends": [
+    "airbnb/base",
+    "prettier"
+  ],
+  "rules": {
+    "prefer-arrow-functions/prefer-arrow-functions": [
+      "warn",
+      {
+        "allowNamedFunctions": false,
+        "classPropertiesAllowed": false,
+        "disallowPrototype": false,
+        "returnStyle": "unchanged",
+        "singleReturnOnly": false
+      }
+    ]
+  }
 }
