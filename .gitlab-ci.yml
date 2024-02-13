@@ -93,6 +93,19 @@ prettier:
     - !reference [.test-rules]
     - !reference [.deploy-rules]
 
+pint:
+  stage: test
+  image: ${CI_REGISTRY_IMAGE}/laravel:latest
+  needs:
+    - job: composer
+      artifacts: true
+  script:
+    - cd ./application
+    - ./vendor/bin/pint --test
+  rules:
+    - !reference [.test-rules]
+    - !reference [.deploy-rules]
+
 eslint:
   stage: test
   image: node:20-alpine
