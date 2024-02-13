@@ -6,40 +6,39 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use MongoDB\Laravel\Connection;
 
-
 class EnquiryRulesGenerator extends Command
 {
     protected $signature = 'enquiry:generate-rules {--output= : The name of the file to save the rules}';
+
     protected $description = 'Generate validation rules based on a MongoDB collection';
 
     protected Connection $connection;
-
 
     public function handle()
     {
         $document = DB::connection('mongodb')->collection('Enquiries')->first();
 
-        if (!$document) {
+        if (! $document) {
             $this->error("Couldn't fetch document. Ensure the collection has data.");
+
             return;
         }
 
         $laravelRules = $this->convertToLaravelRules($document);
 
-        $formattedRules = '[' . PHP_EOL;
+        $formattedRules = '['.PHP_EOL;
         foreach ($laravelRules as $key => $rule) {
-            $formattedRules .= "\t'{$key}' => '{$rule}'," . PHP_EOL;
+            $formattedRules .= "\t'{$key}' => '{$rule}',".PHP_EOL;
         }
         $formattedRules .= ']';
 
         if ($this->option('output')) {
             file_put_contents($this->option('output'), $formattedRules);
-            $this->info("Rules have been saved to " . $this->option('output'));
+            $this->info('Rules have been saved to '.$this->option('output'));
         } else {
             $this->info($formattedRules);
         }
     }
-
 
     private function convertToLaravelRules(array $document)
     {

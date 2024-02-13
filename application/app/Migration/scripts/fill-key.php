@@ -1,12 +1,11 @@
 <?php
 
-
 $filePath = 'test_with_headers.csv';
 $file = fopen($filePath, 'r');
 $tempFile = fopen('test_with_key.csv', 'w');
 
-if (!$file || !$tempFile) {
-    die("Unable to open the file.");
+if (! $file || ! $tempFile) {
+    exit('Unable to open the file.');
 }
 
 $headers = fgetcsv($file);
@@ -19,8 +18,8 @@ $centreCodeIndex = array_search('CENTRE_CODE', $headers);
 $keyIndex = array_search('Key', $headers);
 $enquiryNumberIndex = array_search('ENQUIRY_NUMBER', $headers);
 
-while (($row = fgetcsv($file)) !== FALSE) {
-    if (!empty(trim($row[$centreCodeIndex]))) {
+while (($row = fgetcsv($file)) !== false) {
+    if (! empty(trim($row[$centreCodeIndex]))) {
         $enquiryNumber++;
         $row[$keyIndex] = "{$enquiryNumber}*{$row[$centreCodeIndex]}";
         $row[$enquiryNumberIndex] = $enquiryNumber;

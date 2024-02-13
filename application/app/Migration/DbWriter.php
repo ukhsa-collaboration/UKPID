@@ -6,10 +6,10 @@ use App\Models\Enquiry;
 
 class DbWriter
 {
-    public function write(array $data) : void
+    public function write(array $data): void
     {
         $timestamp = now()->toDateTimeString();
-        $dataWithTimestamps = array_map(function($enquiryData) use ($timestamp) {
+        $dataWithTimestamps = array_map(function ($enquiryData) use ($timestamp) {
 
             return array_merge(
                 $enquiryData,

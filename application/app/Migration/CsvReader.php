@@ -4,7 +4,7 @@ namespace App\Migration;
 
 class CsvReader
 {
-    public static function execute($csvFile, $maxEnquiries = 999999) : array
+    public static function execute($csvFile, $maxEnquiries = 999999): array
     {
         $handle = fopen($csvFile, 'r');
         $headers = fgetcsv($handle);
@@ -21,12 +21,12 @@ class CsvReader
         $currentEnquiry = [];
         $enquiryNumber = 0;
 
-        while (!feof($handle) && $enquiryNumber <= $maxEnquiries) {
+        while (! feof($handle) && $enquiryNumber <= $maxEnquiries) {
 
             // https://gist.github.com/jbratu/29b3ba6133fd17285b9fff665fada315
             $row = fgetcsv($handle);
             $row = mb_convert_encoding($row, 'UTF-8', 'ISO-8859-1');
-            if (!is_array($row)) {
+            if (! is_array($row)) {
                 // probably whitespace at EOF, just end
                 break;
             }
@@ -35,7 +35,7 @@ class CsvReader
 
             $keyIndex = array_search('Key', $headers);
             // if we encounter a value in the Key column, it's a new enquiry
-            if (!empty($row[$keyIndex])) {
+            if (! empty($row[$keyIndex])) {
                 // add current enquiry before creating new one
                 if ($currentEnquiry) {
                     $enquiries[] = $currentEnquiry;
@@ -52,12 +52,13 @@ class CsvReader
         $enquiries[] = $currentEnquiry;
 
         fclose($handle);
+
         return $enquiries;
     }
 
     private static function splitValueIfNeeded($value)
     {
-        $specialCharacters = ["ü", "Ã¼"];
+        $specialCharacters = ['ü', 'Ã¼'];
 
         foreach ($specialCharacters as $specialChar) {
             if (str_contains($value, $specialChar)) {
@@ -68,18 +69,18 @@ class CsvReader
         return $value;
     }
 
-
-    private static function createEnquiry($headers, $row) : array
+    private static function createEnquiry($headers, $row): array
     {
         $enquiry = [];
         foreach ($row as $i => $v) {
             $trimmedValue = trim($v);
             $enquiry[$headers[$i]] = self::splitValueIfNeeded($trimmedValue);
         }
+
         return $enquiry;
     }
 
-    private static function extendEnquiry($currentEnquiry, $headers, $row) : array
+    private static function extendEnquiry($currentEnquiry, $headers, $row): array
     {
         foreach ($row as $i => $v) {
             $trimmedValue = trim($v);
@@ -91,14 +92,14 @@ class CsvReader
             $splitValues = self::splitValueIfNeeded($trimmedValue);
 
             // ensure $splitValues and $currentEnquiry[$header] are both arrays, then merge them
-            if (!is_array($splitValues)) {
+            if (! is_array($splitValues)) {
                 $splitValues = [$splitValues];
             }
 
             if (empty($currentEnquiry[$header])) {
                 $currentEnquiry[$header] = $splitValues;
             } else {
-                if (!is_array($currentEnquiry[$header])) {
+                if (! is_array($currentEnquiry[$header])) {
                     $currentEnquiry[$header] = [$currentEnquiry[$header]];
                 }
                 $currentEnquiry[$header] = array_merge($currentEnquiry[$header], $splitValues);
@@ -107,6 +108,4 @@ class CsvReader
 
         return $currentEnquiry;
     }
-
-
 }

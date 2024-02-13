@@ -11,9 +11,9 @@
 |
 */
 
+use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\EnquiryController;
 
 Route::get('/status', function () {
     return response('Success');

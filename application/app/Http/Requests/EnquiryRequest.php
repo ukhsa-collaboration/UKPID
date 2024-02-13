@@ -31,16 +31,16 @@ class EnquiryRequest extends FormRequest
                 'bail',
                 'sometimes',
                 'nullable',
-                function ($attribute, $value, $fail) use ($field) {
+                function ($attribute, $value, $fail) {
                     // Check if the value is an array and if every element matches the expected type
                     if (is_array($value)) {
                         foreach ($value as $item) {
-                            if (!$item instanceof ExpectedType) { // Replace ExpectedType with the expected type, e.g., string or integer
+                            if (! $item instanceof ExpectedType) { // Replace ExpectedType with the expected type, e.g., string or integer
                                 $fail("The $attribute must be a single primitive or an array of primitives.");
                             }
                         }
                         // Check if the single value matches the expected type
-                    } elseif (!$value instanceof ExpectedType) {
+                    } elseif (! $value instanceof ExpectedType) {
                         $fail("The $attribute must be a single primitive or an array of primitives.");
                     }
                 },

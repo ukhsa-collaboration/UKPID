@@ -1,22 +1,27 @@
 <?php
 
-function get_headers_from_file($file_path) {
+function get_headers_from_file($file_path)
+{
     $file_handle = fopen($file_path, 'r');
     $headers = fgetcsv($file_handle);
     fclose($file_handle);
+
     return $headers;
 }
 
-function merge_headers_with_order($source_headers, $target_headers) {
+function merge_headers_with_order($source_headers, $target_headers)
+{
     $headers_to_add = array_diff($source_headers, $target_headers);
     foreach ($headers_to_add as $header) {
         $position = array_search($header, $source_headers);
         array_splice($target_headers, $position, 0, $header);
     }
+
     return $target_headers;
 }
 
-function process_rows_and_write_to_file($source_file_handle, $new_file_handle, $final_headers, $existing_headers) {
+function process_rows_and_write_to_file($source_file_handle, $new_file_handle, $final_headers, $existing_headers)
+{
     $row_count = 0;
     while ($row = fgetcsv($source_file_handle)) {
         $new_row = array_fill(0, count($final_headers), ''); // prepare a row with empty values

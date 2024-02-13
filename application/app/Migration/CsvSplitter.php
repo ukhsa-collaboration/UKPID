@@ -4,7 +4,7 @@ namespace App\Migration;
 
 class CsvSplitter
 {
-    public static function execute($inputFile, $outputDir, $enquiriesPerFile = 10, $maxFileCount = 10) : void
+    public static function execute($inputFile, $outputDir, $enquiriesPerFile = 10, $maxFileCount = 10): void
     {
         $handle = self::openCsv($inputFile);
         $headers = fgetcsv($handle);
@@ -15,7 +15,7 @@ class CsvSplitter
         $fileCount = $enquiryCount = 0;
         $currentFile = null;
 
-        while (!feof($handle)) {
+        while (! feof($handle)) {
             $row = fgetcsv($handle);
 
             if (self::isNewEnquiry($row, $headers)) {
@@ -44,27 +44,28 @@ class CsvSplitter
     private static function openCsv($inputFile)
     {
         $handle = fopen($inputFile, 'r');
-        if (!$handle)  {
+        if (! $handle) {
             throw new \RuntimeException("Failed to open source file: {$inputFile}");
         }
 
         return $handle;
     }
 
-    private static function ensureOutputDirectoryExists(string $outputDir) : void
+    private static function ensureOutputDirectoryExists(string $outputDir): void
     {
-        if (!is_dir($outputDir)) {
+        if (! is_dir($outputDir)) {
             mkdir($outputDir, 0755, true);
         }
     }
 
-    private static function isNewEnquiry($row, $headers) : bool
+    private static function isNewEnquiry($row, $headers): bool
     {
         $keyIndex = array_search('Key', $headers);
-        return !empty($row[$keyIndex]);
+
+        return ! empty($row[$keyIndex]);
     }
 
-    private static function shouldSwitchFile($currentFile, $enquiryCount, $enquiriesPerFile) : bool
+    private static function shouldSwitchFile($currentFile, $enquiryCount, $enquiriesPerFile): bool
     {
         return $currentFile === null || $enquiryCount % $enquiriesPerFile == 0 && $enquiryCount != 0;
     }
@@ -72,10 +73,11 @@ class CsvSplitter
     private static function switchFile($currentFile, $outputDir, $fileCount, $headers)
     {
         self::closeFile($currentFile);
+
         return self::createNewFile($outputDir, $fileCount, $headers);
     }
 
-    private static function closeFile($currentFile) : void
+    private static function closeFile($currentFile): void
     {
         if (is_resource($currentFile)) {
             fclose($currentFile);
@@ -84,15 +86,16 @@ class CsvSplitter
 
     private static function createNewFile($outputDir, $fileCount, $headers)
     {
-        $fileName = $outputDir . "/split_{$fileCount}.csv";
+        $fileName = $outputDir."/split_{$fileCount}.csv";
         echo "Creating file $fileName\n";
         $file = fopen($fileName, 'w');
 
-        if (!$file) {
+        if (! $file) {
             throw new \RuntimeException("Failed to create new file: {$fileName}");
         }
 
         fputcsv($file, $headers);
+
         return $file;
     }
 }

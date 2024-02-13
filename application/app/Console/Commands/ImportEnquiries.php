@@ -2,14 +2,15 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Migration\CsvReader;
 use App\Migration\DbWriter;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
 class ImportEnquiries extends Command
 {
     private DbWriter $dbWriter;
+
     protected $signature = 'enquiry:import
                         {inputDir : The directory to process}
                         {files=20 : The number of files to process (default: 20)}
@@ -26,22 +27,23 @@ class ImportEnquiries extends Command
     public function handle()
     {
         $inputDir = $this->argument('inputDir');
-        $archiveDir = $inputDir . '/archive';
-        $errorDir = $inputDir . '/error';
+        $archiveDir = $inputDir.'/archive';
+        $errorDir = $inputDir.'/error';
         $reprocessErrors = $this->option('reprocess-errors');
         $filesToProcess = $this->argument('files'); // Get the number of files to process
 
         // Check for required directories and create if necessary
-        if (!is_dir($inputDir)) {
+        if (! is_dir($inputDir)) {
             $this->error("The provided directory {$inputDir} does not exist!");
+
             return;
         }
 
-        if (!is_dir($archiveDir)) {
+        if (! is_dir($archiveDir)) {
             mkdir($archiveDir);
         }
 
-        if (!is_dir($errorDir)) {
+        if (! is_dir($errorDir)) {
             mkdir($errorDir);
         }
 
@@ -51,10 +53,11 @@ class ImportEnquiries extends Command
 
         if (empty($splitFiles)) {
             $this->error("No CSV files found in $processingDir");
+
             return;
         }
 
-        usort($splitFiles, function($a, $b) {
+        usort($splitFiles, function ($a, $b) {
             return (int) str_replace('split_', '', $a) - (int) str_replace('split_', '', $b);
         });
 
@@ -73,12 +76,12 @@ class ImportEnquiries extends Command
                 rename($filePath, "{$archiveDir}/{$file}");
                 $processedCount++; // Increment the processed file count
             } catch (\Exception $exception) {
-                if (!$reprocessErrors) {
+                if (! $reprocessErrors) {
                     // move to error if there's an exception and we're not reprocessing errors
                     rename($filePath, "{$errorDir}/{$file}");
                 }
                 // log the error whether we're reprocessing or not
-                $this->error("Error importing $file: " . $exception->getMessage());
+                $this->error("Error importing $file: ".$exception->getMessage());
             }
         }
 
