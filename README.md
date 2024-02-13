@@ -153,6 +153,18 @@ for production, and are not running Vite's dev server before running Dusk.**
 
 ## Contributing
 
+### NPM
+
+This project is configured to install npm packages as dev dependencies by default. The reason for this being that dev
+dependencies are excluded from the packaged application. These dependencies are either exclusively used for testing, or
+are packages used by the renderer which are bundled up by Vite during the build process. If we were to include these
+dependencies are they are then the app package grows by about 500mb. They aren't necessary and saving them as dev
+dependencies by default removes the burden of having to pass the -D flag.
+
+For packages used by node in the main process, you'll need to pass `--save-prod` to the npm install command to save
+these as production dependencies which are included in the packaged app. If you encounter a module not found error when
+running a packaged build the cause is probably this.
+
 ### Code quality
 
 This project uses several tools to enforce code standards and style.

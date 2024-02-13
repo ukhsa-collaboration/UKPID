@@ -48,7 +48,7 @@ npm:
   image: node:20-alpine
   script:
     - cd ./application
-    - npm install
+    - npm ci
   artifacts:
     paths:
       - ./application/node_modules
