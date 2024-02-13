@@ -7,9 +7,20 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "plugins": ["prefer-arrow-functions"],
-  "extends": ["airbnb/base", "prettier"],
+  "plugins": [
+    "prefer-arrow-functions"
+  ],
+  "extends": [
+    "airbnb/base",
+    "prettier"
+  ],
   "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
     "prefer-arrow-functions/prefer-arrow-functions": [
       "warn",
       {

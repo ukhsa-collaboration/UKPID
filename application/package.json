@@ -10,6 +10,11 @@
     "lint": "npm run lint:js && npm run lint:prettier && npm run lint:style"
   },
   "devDependencies": {
+    "@fluentui/svg-icons": "1.1.227",
+    "@fluentui/web-components": "2.5.14",
+    "@microsoft/fast-colors": "5.3.1",
+    "@microsoft/fast-foundation": "2.49.5",
+    "axios": "1.6.7",
     "eslint": "8.56.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "9.1.0",
@@ -17,16 +22,11 @@
     "eslint-plugin-jsx-a11y": "6.8.0",
     "eslint-plugin-prefer-arrow-functions": "3.2.4",
     "laravel-vite-plugin": "1.0.1",
-    "prettier": "3.1.1",
-    "sass": "1.69.7",
-    "stylelint": "16.1.0",
+    "normalize.css": "8.0.1",
+    "prettier": "3.2.5",
+    "sass": "1.70.0",
+    "stylelint": "16.2.1",
     "stylelint-config-standard-scss": "13.0.0",
-    "vite": "5.0.11"
-  },
-  "dependencies": {
-    "@fluentui/svg-icons": "1.1.224",
-    "@fluentui/web-components": "2.5.16",
-    "axios": "1.6.5",
-    "normalize.css": "8.0.1"
+    "vite": "5.1.1"
   }
 }
