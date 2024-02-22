@@ -2,7 +2,7 @@
   "name": "juicymedia/ukpid-backend",
   "type": "project",
   "description": "Backend for UKPID.",
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
     {
       "name": "Daniel Hart",

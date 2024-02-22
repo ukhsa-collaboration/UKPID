@@ -170,6 +170,8 @@
       <path value="$PROJECT_DIR$/application/vendor/phpoption/phpoption" />
       <path value="$PROJECT_DIR$/application/vendor/paragonie/constant_time_encoding" />
       <path value="$PROJECT_DIR$/application/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/application/vendor/owen-it/laravel-auditing" />
+      <path value="$PROJECT_DIR$/application/vendor/mongodb/laravel-mongodb" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

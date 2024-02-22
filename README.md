@@ -75,7 +75,7 @@ The actual application is contained within the `/application` directory.
 8. Run `docker-compose exec laravel php artisan migrate --seed` to create and populate the database
 9. Once that's all finished, the application should be visible at [http://localhost:35080](http://localhost:35080)
 
-🤩 Add yourself to the authors listed in the composer.json file!
+Add yourself to the authors listed in the composer.json file!
 
 ### Composer
 
