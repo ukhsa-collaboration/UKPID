@@ -189,7 +189,7 @@ class UserTest extends TestCase
             'role' => Role::firstWhere('name', 'Administrator')->id,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertInvalid(['role']);
 
         $response = $this->postJson('/api/user/', [
             'name' => fake()->name(),
@@ -221,7 +221,7 @@ class UserTest extends TestCase
             'name' => fake()->name(),
             'email' => fake()->unique()->email(),
             'location' => Locations::BIRMINGHAM->name,
-            'role' => Role::firstWhere('name', 'Administrator')->id,
+            'role' => Role::firstWhere('name', 'User')->id,
         ]);
 
         $response->assertStatus(201);
@@ -237,7 +237,7 @@ class UserTest extends TestCase
             'name' => fake()->name(),
             'email' => fake()->unique()->email(),
             'location' => Locations::BIRMINGHAM->name,
-            'role' => Role::firstWhere('name', 'Administrator')->id,
+            'role' => Role::firstWhere('name', 'User')->id,
         ]);
 
         $response->assertStatus(403);
@@ -260,5 +260,87 @@ class UserTest extends TestCase
         $response = $this->postJson('/api/user/', $userData);
 
         $response->assertStatus(201);
+    }
+
+    public function test_user_audit_logs_are_retrievable(): void
+    {
+        $admin = User::factory()->create([
+            'location' => Locations::CARDIFF->name,
+        ]);
+        $admin->syncRoles('Administrator');
+
+        Passport::actingAs($admin);
+
+        // Create new user
+        $userData = [
+            'name' => fake()->name(),
+            'email' => fake()->unique()->email(),
+            'location' => Locations::CARDIFF->name,
+            'role' => Role::firstWhere('name', 'Manager')->id,
+        ];
+        $response = $this->postJson('/api/user/', $userData);
+        $response->assertStatus(201);
+        $manager = User::findOrFail($response->json()['user']['id']);
+
+        $response = $this->getJson('/api/user/audits/');
+        $response->assertStatus(200);
+        $response
+            ->assertJson(fn (AssertableJson $json) => $json
+                ->has('data.1', fn (AssertableJson $json) => $json
+                    ->has('id')
+                    ->has('owner')
+                    ->where('event', 'created')
+                    ->where('target_id', $manager->id)
+                    ->has('old_values')
+                    ->has('new_values')
+                    ->has('date')
+                )
+                ->etc()
+            );
+
+        $response = $this->getJson('/api/user/'.$manager->id.'/audit/');
+        $response->assertStatus(200);
+        $response
+            ->assertJson(fn (AssertableJson $json) => $json
+                ->has('data.0', fn (AssertableJson $json) => $json
+                    ->has('id')
+                    ->has('owner')
+                    ->where('event', 'created')
+                    ->where('target_id', $manager->id)
+                    ->has('old_values')
+                    ->has('new_values')
+                    ->has('date')
+                )
+                ->etc()
+            );
+    }
+
+    public function test_only_admins_can_access_user_audits(): void
+    {
+        $admin = User::factory()->create([
+            'location' => Locations::CARDIFF->name,
+        ]);
+        $admin->syncRoles('Administrator');
+
+        $manager = User::factory()->create([
+            'location' => Locations::CARDIFF->name,
+        ]);
+        $manager->syncRoles('Manager');
+
+        Passport::actingAs($admin);
+
+        $response = $this->getJson('/api/user/audits/');
+        $response->assertStatus(200);
+
+        $response = $this->getJson('/api/user/'.$manager->id.'/audit/');
+        $response->assertStatus(200);
+
+        Passport::actingAs($manager);
+
+        $response = $this->getJson('/api/user/audits/');
+        $response->assertStatus(403);
+
+        $response = $this->getJson('/api/user/'.$manager->id.'/audit/');
+        $response->assertStatus(403);
     }
 }

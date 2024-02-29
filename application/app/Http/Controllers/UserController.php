@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Events\UserCreated;
+use App\Http\Requests\AuditRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\AuditResource;
 use App\Http\Resources\UserResource;
+use App\Models\Audit;
 use App\Models\User;
+use App\Traits\AuditableController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    use AuditableController;
+
     /**
      * Get all users.
      */
@@ -62,19 +69,21 @@ class UserController extends Controller
     }
 
     /**
-     * Get current user
+     * Get the current user.
      */
     public function me(Request $request)
     {
-        return new UserResource($request->user());
+        return new UserResource($request->user(), true);
     }
 
     /**
      * Update a user.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->update($request->validated());
+
+        return new UserResource($user);
     }
 
     /**
@@ -83,5 +92,33 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Get audit logs related to users.
+     *
+     * @response \Illuminate\Http\Resources\Json\AnonymousResourceCollection<App\Http\Resources\AuditResource>
+     */
+    public function audits(AuditRequest $request)
+    {
+        $validated = $request->validated();
+
+        $audits = self::auditFiltersAndOrder(Audit::where('auditable_type', User::class), $validated);
+
+        return AuditResource::collection($audits->paginate());
+    }
+
+    /**
+     * Get audit logs relating to a user.
+     *
+     * @response \Illuminate\Http\Resources\Json\AnonymousResourceCollection<App\Http\Resources\AuditResource>
+     */
+    public function audit(AuditRequest $request, User $user)
+    {
+        $validated = $request->validated();
+
+        $audits = self::auditFiltersAndOrder($user->audits(), $validated);
+
+        return AuditResource::collection($audits->paginate());
     }
 }

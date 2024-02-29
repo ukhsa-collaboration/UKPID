@@ -24,6 +24,13 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Route::macro('apiResourceWithAudits', function ($name, $controller) {
+            Route::get($name.'/{'.$name.'}/audit', [$controller, 'audit'])->name($name.'.audit');
+            Route::get($name.'/audits', [$controller, 'audits'])->name($name.'.audits');
+
+            Route::apiResource($name, $controller);
+        });
+
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });

@@ -16,8 +16,8 @@ Information (SPIs). Data from telephone enquiries to the NPIS and the advice giv
 This is a Laravel-based application supported by a MongoDB database for enquiry data and a MySQL database used for
 storing application data (e.g. users, sessions, tokens).
 
-Primary access to this backend is via
-the [Electron-based frontend application](https://gitlab.com/juicy-media-ltd/ukpid/ukpid-desktop-app).
+Primary access to this backend application is via
+the [Electron-based desktop application](https://gitlab.com/juicy-media-ltd/ukpid/ukpid-desktop-app).
 
 ## Development
 
@@ -26,8 +26,8 @@ A [Docker](https://www.docker.com/)-based local environment is provided for deve
 PHP, Nginx, MySQL 8, and MongoDB containers are provided to run the core application. Additional database containers are
 available for PHPUnit testing purposes.
 
-Composer and NPM (Node.js) containers are provided for package management, negating the need for versions of these to be
-maintained on the host machine.
+For package management, an NPM (Node.js) container is provided, and Composer is included in the Laravel container. This
+negates the need for versions of these to be maintained on the host machine.
 
 A [Mailpit](https://github.com/axllent/mailpit) container is provided as a SMTP host to capture and preview emails sent
 from the application. It can be accessed at [http://localhost:35082](http://localhost:35082)
@@ -247,6 +247,10 @@ You'll have two routes where you can view the documentation on your local enviro
 Scramble will analyze the code and try and detect what type a property is, however it may not always be correct (it
 doesn't appear to have support for Eloquent Accessors & Mutators, for example). You should review the documentation as
 you add new resources and endpoints and ensure the type definitions are correct.
+
+**Note:** Scramble doesn't currently support the MongoDB database driver. It will throw an error if it tries to parse
+any routes which use it. For now, these routes are manually excluded from the api docs via the `AppServiceProvider`. A
+proper workaround will be considered later.
 
 ### Application Documentation
 

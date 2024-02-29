@@ -21,7 +21,7 @@ Route::get('/status', function () {
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/user/me', [UserController::class, 'me']);
-    Route::apiResource('user', UserController::class);
+    Route::apiResourceWithAudits('user', UserController::class);
 
     Route::apiResource('role', RoleController::class)->only(['index']);
 });

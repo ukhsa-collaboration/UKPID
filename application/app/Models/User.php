@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Arr;
 use Laravel\Sanctum\HasApiTokens;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
-    use HasApiTokens, HasFactory, HasRoles, Notifiable;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable, \OwenIt\Auditing\Auditable;
 
     /**
      * The attributes that are mass assignable.
@@ -46,6 +48,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected $auditExclude = [
+        'id',
+        'remember_token',
+        'email_verified_at',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function transformAudit(array $data): array
+    {
+        if (Arr::has($data, 'old_values.password')) {
+            $data['old_values']['password'] = '*****';
+        }
+
+        if (Arr::has($data, 'new_values.password')) {
+            $data['new_values']['password'] = '*****';
+        }
+
+        return $data;
+    }
 
     protected function location(): Attribute
     {
