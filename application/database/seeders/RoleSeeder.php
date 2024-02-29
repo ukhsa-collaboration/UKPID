@@ -30,7 +30,6 @@ class RoleSeeder extends Seeder
             'user.read',
             'user.update',
             'user.delete',
-            'user.update_self',
             'role.assign.manager',
             'role.assign.user',
         ]);
@@ -43,7 +42,7 @@ class RoleSeeder extends Seeder
         ]);
 
         $role->givePermissionTo([
-            'user.update_self',
+            //
         ]);
     }
 }

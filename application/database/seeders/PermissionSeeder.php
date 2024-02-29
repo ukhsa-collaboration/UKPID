@@ -34,10 +34,10 @@ class PermissionSeeder extends Seeder
             'user.read_outside_location',
             'user.update_outside_location',
             'user.delete_outside_location',
-            'user.update_self',
             'role.assign.administrator',
             'role.assign.manager',
             'role.assign.user',
+            'audit.read',
         ];
 
         foreach ($permissions as $permission) {

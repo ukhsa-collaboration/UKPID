@@ -33,7 +33,7 @@ composer:
   image: ${CI_REGISTRY_IMAGE}/laravel:latest
   script:
     - cd ./application
-    - composer install --ignore-platform-reqs
+    - composer install
   artifacts:
     paths:
       - ./application/vendor

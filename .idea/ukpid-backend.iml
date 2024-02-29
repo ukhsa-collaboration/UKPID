@@ -136,7 +136,6 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/defuse/php-encryption" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/firebase/php-jwt" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/jean85/pretty-package-versions" />
-      <excludeFolder url="file://$MODULE_DIR$/application/vendor/jenssegers/mongodb" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/passport" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/lcobucci/clock" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/lcobucci/jwt" />
@@ -151,9 +150,10 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/phpseclib/phpseclib" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/psr/clock" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/spatie/laravel-permission" />
-      <excludeFolder url="file://$MODULE_DIR$/application/vendor/symfony/polyfill-php73" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/symfony/polyfill-php81" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/symfony/psr-http-message-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/owen-it/laravel-auditing" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/mongodb/laravel-mongodb" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
