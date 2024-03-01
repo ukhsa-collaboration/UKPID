@@ -5,8 +5,9 @@ version: '3'
 services:
   laravel:
     user: "1000:1000"
-  composer:
-    user: "1000:1000"
+    build:
+      args:
+        - WITHOUT_CRON=true
   npm:
     user: "1000:1000"
   vite:
