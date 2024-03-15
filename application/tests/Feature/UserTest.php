@@ -17,7 +17,7 @@ class UserTest extends TestCase
     public function test_the_user_index_route_returns_users(): void
     {
         $admin = User::factory()->create();
-        $admin->syncRoles('Administrator');
+        $admin->syncRoles('System Administrator');
 
         Passport::actingAs($admin);
 
@@ -51,7 +51,7 @@ class UserTest extends TestCase
         $users = User::factory()->count(2)->create();
 
         $admin = $users->first();
-        $admin->syncRoles('Administrator');
+        $admin->syncRoles('System Administrator');
 
         Passport::actingAs($admin);
 
@@ -84,7 +84,7 @@ class UserTest extends TestCase
         $users = User::factory()->count(2)->create();
 
         $admin = $users->last();
-        $admin->syncRoles('Administrator');
+        $admin->syncRoles('System Administrator');
 
         Passport::actingAs($admin);
 
@@ -117,7 +117,7 @@ class UserTest extends TestCase
         $admin = User::factory()->create([
             'location' => Locations::CARDIFF->name,
         ]);
-        $admin->syncRoles('Administrator');
+        $admin->syncRoles('System Administrator');
 
         Passport::actingAs($admin);
 
@@ -154,7 +154,7 @@ class UserTest extends TestCase
         $response = $this->postJson('/api/user/', [
             'name' => fake()->name(),
             'email' => fake()->unique()->email(),
-            'role' => Role::firstWhere('name', 'Administrator')->id,
+            'role' => Role::firstWhere('name', 'System Administrator')->id,
         ]);
 
         $response->assertStatus(201);
@@ -186,7 +186,7 @@ class UserTest extends TestCase
         $response = $this->postJson('/api/user/', [
             'name' => fake()->name(),
             'email' => fake()->unique()->email(),
-            'role' => Role::firstWhere('name', 'Administrator')->id,
+            'role' => Role::firstWhere('name', 'System Administrator')->id,
         ]);
 
         $response->assertInvalid(['role']);
@@ -213,7 +213,7 @@ class UserTest extends TestCase
         $admin = User::factory()->create([
             'location' => Locations::CARDIFF->name,
         ]);
-        $admin->syncRoles('Administrator');
+        $admin->syncRoles('System Administrator');
 
         Passport::actingAs($admin);
 
@@ -267,7 +267,7 @@ class UserTest extends TestCase
         $admin = User::factory()->create([
             'location' => Locations::CARDIFF->name,
         ]);
-        $admin->syncRoles('Administrator');
+        $admin->syncRoles('System Administrator');
 
         Passport::actingAs($admin);
 
@@ -320,7 +320,7 @@ class UserTest extends TestCase
         $admin = User::factory()->create([
             'location' => Locations::CARDIFF->name,
         ]);
-        $admin->syncRoles('Administrator');
+        $admin->syncRoles('System Administrator');
 
         $manager = User::factory()->create([
             'location' => Locations::CARDIFF->name,

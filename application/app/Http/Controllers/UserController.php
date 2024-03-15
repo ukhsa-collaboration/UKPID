@@ -27,7 +27,7 @@ class UserController extends Controller
     }
 
     /**
-     * Create a new user.
+     * Store a new user.
      *
      * This application allows managers to create users, rather than only invite them.
      * The rationale for this being implementing invitations creates a little more work,

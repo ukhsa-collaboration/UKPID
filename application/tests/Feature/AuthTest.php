@@ -147,7 +147,7 @@ class AuthTest extends TestCase
     public function test_new_user_is_forced_to_change_their_temporary_password(): void
     {
         $admin = User::factory()->create();
-        $admin->syncRoles('Administrator');
+        $admin->syncRoles('System Administrator');
 
         Passport::actingAs($admin);
 
