@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
                     'location' => Locations::CARDIFF->name,
                 ]);
 
-            $user->syncRoles(['Administrator']);
+            $user->syncRoles(['System Administrator']);
         }
 
         $email = 'manager@cardiff.com';

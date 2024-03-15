@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use App\Models\Passport\Client;
-use App\Models\User;
+use App\Models\SourceOfEnquiry;
+use App\Policies\SourceOfEnquiryPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        SourceOfEnquiry::class => SourceOfEnquiryPolicy::class,
     ];
 
     /**
@@ -29,12 +28,5 @@ class AuthServiceProvider extends ServiceProvider
         Passport::useClientModel(Client::class);
         Passport::tokensExpireIn(now()->addHours(6));
         Passport::refreshTokensExpireIn(now()->addMonths(6));
-
-        // Allow the Administrators to pass all permission checks
-        Gate::after(function (User $user, string $ability, ?bool $result, mixed $arguments) {
-            if ($user->hasRole('Administrator')) {
-                return true;
-            }
-        });
     }
 }

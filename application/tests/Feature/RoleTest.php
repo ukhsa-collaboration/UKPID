@@ -15,7 +15,7 @@ class RoleTest extends TestCase
     public function test_the_role_index_endpoint_returns_all_roles(): void
     {
         $user = User::factory()->create();
-        $user->syncRoles('Administrator');
+        $user->syncRoles('System Administrator');
 
         Passport::actingAs($user);
 
@@ -24,10 +24,10 @@ class RoleTest extends TestCase
         $response->assertStatus(200);
         $response
             ->assertJson(fn (AssertableJson $json) => $json
-                ->has('data', 3)
+                ->has('data', 4)
                 ->has('data.0', fn (AssertableJson $json) => $json
                     ->where('id', 1)
-                    ->where('name', 'Administrator')
+                    ->where('name', 'System Administrator')
                     ->etc()
                 )
             );
@@ -36,7 +36,7 @@ class RoleTest extends TestCase
     public function test_the_role_index_endpoint_returns_roles_with_permissions(): void
     {
         $user = User::factory()->create();
-        $user->syncRoles('Administrator');
+        $user->syncRoles('System Administrator');
 
         Passport::actingAs($user);
 
@@ -45,13 +45,13 @@ class RoleTest extends TestCase
         $response->assertStatus(200);
         $response
             ->assertJson(fn (AssertableJson $json) => $json
-                ->has('data', 3)
+                ->has('data', 4)
                 ->has('data.1', fn (AssertableJson $json) => $json
                     ->where('id', 2)
                     ->where('name', 'Manager')
                     ->has('permissions.0', fn (AssertableJson $json) => $json
                         ->where('name', 'user.create')
-                        ->where('label', 'Create new users')
+                        ->where('label', 'Create new users.')
                         ->etc()
                     )
                     ->etc()

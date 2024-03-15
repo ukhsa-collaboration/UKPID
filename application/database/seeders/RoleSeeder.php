@@ -16,9 +16,42 @@ class RoleSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Role::updateOrCreate(['name' => 'Administrator']);
+        $this->administratorRole();
         $this->managerRole();
         $this->userRole();
+        $this->developerRole();
+    }
+
+    private function developerRole()
+    {
+        $role = Role::updateOrCreate(['name' => 'Developer']);
+
+        $role->givePermissionTo([
+            'form_data.update',
+        ]);
+    }
+
+    private function administratorRole()
+    {
+        $role = Role::updateOrCreate(['name' => 'System Administrator']);
+
+        $role->givePermissionTo([
+            'user.create',
+            'user.read',
+            'user.update',
+            'user.delete',
+            'user.create_outside_location',
+            'user.read_outside_location',
+            'user.update_outside_location',
+            'user.delete_outside_location',
+            'role.assign.system_administrator',
+            'role.assign.manager',
+            'role.assign.user',
+            'audit.read',
+            'source_of_enquiry.read',
+            'source_of_enquiry.create',
+            'source_of_enquiry.update',
+        ]);
     }
 
     private function managerRole()
@@ -32,6 +65,7 @@ class RoleSeeder extends Seeder
             'user.delete',
             'role.assign.manager',
             'role.assign.user',
+            'source_of_enquiry.read',
         ]);
     }
 
@@ -42,7 +76,7 @@ class RoleSeeder extends Seeder
         ]);
 
         $role->givePermissionTo([
-            //
+            'source_of_enquiry.read',
         ]);
     }
 }
