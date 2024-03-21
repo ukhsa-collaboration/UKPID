@@ -11,9 +11,10 @@
 |
 */
 
+use App\Http\Controllers\CodeController;
+use App\Http\Controllers\CodeTableController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\SourceOfEnquiryController;
 use App\Http\Controllers\UserController;
 
 Route::get('/status', function () {
@@ -25,7 +26,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResourceWithAudits('user', UserController::class);
 
     Route::apiResource('role', RoleController::class)->only(['index']);
-    Route::apiResourceWithAudits('source-of-enquiry', SourceOfEnquiryController::class)->except(['destroy']);
+    Route::apiResourceWithAudits('code-table', CodeTableController::class)->except(['destroy']);
+    Route::apiResourceWithAudits('code', CodeController::class)->except(['destroy']);
 });
 
 // API resource routes for Enquiry

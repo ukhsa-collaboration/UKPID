@@ -51,6 +51,12 @@ class RoleSeeder extends Seeder
             'source_of_enquiry.read',
             'source_of_enquiry.create',
             'source_of_enquiry.update',
+            'code_table.read',
+            'code_table.create',
+            'code_table.update',
+            'code.read',
+            'code.create',
+            'code.update',
         ]);
     }
 
@@ -66,6 +72,8 @@ class RoleSeeder extends Seeder
             'role.assign.manager',
             'role.assign.user',
             'source_of_enquiry.read',
+            'code_table.read',
+            'code.read',
         ]);
     }
 
@@ -77,6 +85,8 @@ class RoleSeeder extends Seeder
 
         $role->givePermissionTo([
             'source_of_enquiry.read',
+            'code_table.read',
+            'code.read',
         ]);
     }
 }

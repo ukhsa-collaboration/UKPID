@@ -2,25 +2,25 @@
 
 namespace App\Policies;
 
-use App\Models\SourceOfEnquiry;
+use App\Models\CodeTable;
 use App\Models\User;
 
-class SourceOfEnquiryPolicy
+class CodeTablePolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('source_of_enquiry.read');
+        return $user->can('code_table.read');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, SourceOfEnquiry $sourceOfEnquiry): bool
+    public function view(User $user, CodeTable $codeTable): bool
     {
-        return $user->can('source_of_enquiry.read');
+        return $user->can('code_table.read');
     }
 
     /**
@@ -28,21 +28,21 @@ class SourceOfEnquiryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('source_of_enquiry.create');
+        return $user->can('code_table.create');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, SourceOfEnquiry $sourceOfEnquiry): bool
+    public function update(User $user, CodeTable $codeTable): bool
     {
-        return $user->can('source_of_enquiry.update');
+        return $user->can('code_table.update');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, SourceOfEnquiry $sourceOfEnquiry): bool
+    public function delete(User $user, CodeTable $codeTable): bool
     {
         return false;
     }
@@ -50,15 +50,15 @@ class SourceOfEnquiryPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, SourceOfEnquiry $sourceOfEnquiry): bool
+    public function restore(User $user, CodeTable $codeTable): bool
     {
-        return $user->can('source_of_enquiry.update');
+        return $user->can('code_table.update');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, SourceOfEnquiry $sourceOfEnquiry): bool
+    public function forceDelete(User $user, CodeTable $codeTable): bool
     {
         return false;
     }
