@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('source_of_enquiries', function (Blueprint $table) {
+        Schema::create('code_tables', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->boolean('hidden')->default(false);
+            $table->boolean('user_definable')->default(false);
+            $table->unsignedBigInteger('default_id')->nullable();
         });
-
-        Artisan::call('db:seed', ['--class' => 'SourceOfEnquirySeeder']);
     }
 
     /**
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('source_of_enquiries');
+        Schema::dropIfExists('code_tables');
     }
 };

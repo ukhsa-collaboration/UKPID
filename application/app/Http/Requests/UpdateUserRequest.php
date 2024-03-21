@@ -30,8 +30,8 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string'],
-            'email' => ['sometimes', 'email', 'unique:users'],
+            'name' => ['sometimes', 'string', 'max:255'],
+            'email' => ['sometimes', 'email', 'unique:users', 'max:255'],
             'location' => [
                 'sometimes', 'string', new ValidLocation,
                 Rule::prohibitedIf($this->user()->cannot('user.update_outside_location')),

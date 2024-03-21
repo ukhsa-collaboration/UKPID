@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSourceOfEnquiryRequest extends FormRequest
+class StoreCodeTableRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,7 @@ class StoreSourceOfEnquiryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'unique:source_of_enquiries,name'],
-            'hidden' => ['sometimes', 'boolean'],
+            'name' => ['required', 'string', 'max:255', 'unique:code_tables,name'],
         ];
     }
 }
