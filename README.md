@@ -60,21 +60,23 @@ The actual application is contained within the `/application` directory.
 
 ### Setup
 
-1. In `/application`, copy the `.env.development` file to `.env`.
+1. Prepare the Docker environment by copying the override file for your environment when applicable:
+   * **Windows only:** Copy the `/docker-compose.override-wsl.yml` file to `/docker-compose.override.yml`
+        * The WSL override file in the project assumes the WSL OS that Docker is configured to use has a user set up and
+          isn't using the root account. You may need to tweak your override file or not use it if you encounter file
+          permission issues.
+   * **Apple Silicon-based Macs only:** Copy the `/docker-compose.override-mac-apple-silicon.yml` file
+       to `/docker-compose.override.yml`
+2. In `/application`, copy the `.env.development` file to `.env`.
     * This should contain all the environment variables required to get started for development
-2. **Windows only:** Copy the `/docker-compose.override-wsl.yml` file to `/docker-compose.override.yml`
-    * The WSL override file in the project assumes the WSL OS that Docker is configured to use has a user set up and
-      isn't using the root account. You may need to tweak your override file or not use it if you encounter file
-      permission issues.
-3. **Apple Silicon-based Macs only:** Copy the `/docker-compose.override-mac-apple-silicon.yml` file
-   to `/docker-compose.override.yml`
-4. Run `docker-compose build` in the root of the project to build the docker images
-5. Run `docker-compose up` in the root of the project to start the docker containers
-6. Run `docker-compose run npm npm install` to install node packages
-7. Run `docker-compose run vite npm run build` to generate frontend assets
-8. Run `docker-compose exec laravel php artisan key:generate` to generate application encryption keys
-9. Run `docker-compose exec laravel php artisan migrate --seed` to create and populate the database
-10. Once that's all finished, the application should be visible at [http://localhost:35080](http://localhost:35080)
+3. Run `docker-compose build` in the root of the project to build the docker images
+5. Run `docker-compose run npm npm install` to install node packages
+6. Run `docker-compose run laravel composer install` to install php packages
+6. Run `docker-compose run vite npm run build` to generate frontend assets
+4. Run `docker-compose up` in the root of the project to start the docker containers
+7. In a new terminal window, run `docker-compose exec laravel php artisan key:generate` to generate application encryption keys
+8. Run `docker-compose exec laravel php artisan migrate --seed` to create and populate the database
+9. Once that's all finished, the application should be visible at [http://localhost:35080](http://localhost:35080)
 
 Add yourself to the authors listed in the composer.json file!
 

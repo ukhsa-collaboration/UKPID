@@ -14,7 +14,8 @@ RUN apt-get update \
     libzip-dev \
     libcurl4-openssl-dev \
     pkg-config \
-    libssl-dev
+    libssl-dev \
+    zip
 
 # Configure PHP
 RUN docker-php-ext-install mysqli pdo pdo_mysql sockets bcmath zip

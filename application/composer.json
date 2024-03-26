@@ -1,5 +1,6 @@
 {
   "name": "juicymedia/ukpid-backend",
+  "version": "1.0.0",
   "type": "project",
   "description": "Backend for UKPID.",
   "license": "MIT",
