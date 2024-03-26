@@ -34,7 +34,8 @@ class AppServiceProvider extends ServiceProvider
         Scramble::routes(function (Route $route) {
             // Exclude enquiries route as Scramble doesn't currently support routes which use MongoDB models
             return Str::startsWith($route->uri, 'api/')
-                && ! Str::startsWith($route->uri, 'api/enquiries');
+                && ! Str::startsWith($route->uri, 'api/enquiries')
+                && ! Str::startsWith($route->uri, 'api/form-definition');
         });
 
         Scramble::extendOpenApi(function (OpenApi $openApi) {

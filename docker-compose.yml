@@ -13,7 +13,6 @@ services:
     restart: unless-stopped
     volumes:
       - ./application:/var/www/html/
-      - ./.docker/php-ini-overrides.ini:/usr/local/etc/php/conf.d/php-ini-overrides.ini
       - ./.docker/.laravel:/root
 
   laravel:

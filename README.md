@@ -68,12 +68,13 @@ The actual application is contained within the `/application` directory.
       permission issues.
 3. **Apple Silicon-based Macs only:** Copy the `/docker-compose.override-mac-apple-silicon.yml` file
    to `/docker-compose.override.yml`
-4. Run `docker-compose up` in the root of the project to start the docker containers
-5. Run `docker-compose run npm npm install` to install node packages
-6. Run `docker-compose run vite npm run build` to generate frontend assets
-7. Run `docker-compose exec laravel php artisan key:generate` to generate application encryption keys
-8. Run `docker-compose exec laravel php artisan migrate --seed` to create and populate the database
-9. Once that's all finished, the application should be visible at [http://localhost:35080](http://localhost:35080)
+4. Run `docker-compose build` in the root of the project to build the docker images
+5. Run `docker-compose up` in the root of the project to start the docker containers
+6. Run `docker-compose run npm npm install` to install node packages
+7. Run `docker-compose run vite npm run build` to generate frontend assets
+8. Run `docker-compose exec laravel php artisan key:generate` to generate application encryption keys
+9. Run `docker-compose exec laravel php artisan migrate --seed` to create and populate the database
+10. Once that's all finished, the application should be visible at [http://localhost:35080](http://localhost:35080)
 
 Add yourself to the authors listed in the composer.json file!
 
@@ -168,10 +169,6 @@ running a packaged build the cause is probably this.
 ### Code quality
 
 This project uses several tools to enforce code standards and style.
-
-<!-- /* @formatter:off */ -->
-![Screenshot from news satire programme The Day Today, showing Peter O'Hanraha-hanrahan with a quote that reads "I don't like it, but I'll have to go along with it](https://i.imgur.com/aYa6uPG.jpeg){width="200"}
-<!-- /* @formatter:on */ -->
 
 There's always debates to had over which code style is better, but they're not really important. These tools enforce one
 style and strive solve the issue of conflicts between developers. You might not like it, but just go along with it!

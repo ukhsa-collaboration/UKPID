@@ -28,12 +28,14 @@ class CodeTest extends TestCase
                     ->has('id')
                     ->has('name')
                     ->has('additional_data')
+                    ->has('code_table_id')
                     ->etc()
                 )
                 ->has('data.1', fn (AssertableJson $json) => $json
                     ->has('id')
                     ->has('name')
                     ->has('additional_data')
+                    ->has('code_table_id')
                     ->etc()
                 )
             );
@@ -70,6 +72,7 @@ class CodeTest extends TestCase
                     ->has('id')
                     ->has('name')
                     ->has('additional_data')
+                    ->has('code_table_id')
                     ->has('code_table', fn (AssertableJson $json) => $json
                         ->has('id')
                         ->has('name')
@@ -115,6 +118,7 @@ class CodeTest extends TestCase
                     ->has('id')
                     ->where('name', $name)
                     ->has('additional_data')
+                    ->has('code_table_id')
                     ->has('code_table', fn (AssertableJson $json) => $json
                         ->where('id', 1)
                         ->has('name')
@@ -174,6 +178,7 @@ class CodeTest extends TestCase
                     ->where('id', 1)
                     ->where('name', $newName)
                     ->has('additional_data')
+                    ->has('code_table_id')
                     ->has('code_table', fn (AssertableJson $json) => $json
                         ->where('id', 1)
                         ->has('name')

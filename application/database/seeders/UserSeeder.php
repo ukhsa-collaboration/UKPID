@@ -13,6 +13,18 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $email = 'developer@juicy.media';
+        if (! User::firstWhere('email', $email)) {
+            $user = User::factory()
+                ->create([
+                    'email' => $email,
+                    'name' => 'Developer',
+                    'location' => Locations::CARDIFF->name,
+                ]);
+
+            $user->syncRoles(['Developer']);
+        }
+
         $email = 'admin@juicy.media';
         if (! User::firstWhere('email', $email)) {
             $user = User::factory()

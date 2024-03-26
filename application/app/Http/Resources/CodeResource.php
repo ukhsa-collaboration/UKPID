@@ -19,6 +19,7 @@ class CodeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'additional_data' => $this->additional_data,
+            'code_table_id' => $this->code_table_id,
             'code_table' => new CodeTableResource($this->whenLoaded('codeTable')),
         ];
     }

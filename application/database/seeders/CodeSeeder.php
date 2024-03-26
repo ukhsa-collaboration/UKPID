@@ -13,7 +13,7 @@ class CodeSeeder extends Seeder
      */
     public function run(): void
     {
-        $codes = File::json('database/seeders/data/codes.json');
+        $codes = File::json(database_path('seeders/data/codes.json'));
 
         foreach ($codes as $table => $data) {
             $codeTable = CodeTable::create([
@@ -31,7 +31,7 @@ class CodeSeeder extends Seeder
                 ]);
 
                 if ($codeData['default']) {
-                    $codeTable->default()->associate($code);
+                    $codeTable->default()->associate($codeModel);
                     $codeTable->save();
                 }
             }

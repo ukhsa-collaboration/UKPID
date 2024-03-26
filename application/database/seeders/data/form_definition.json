@@ -1,0 +1,921 @@
+{
+  "Enquiry": [
+    {
+      "width": 50,
+      "sections": [
+        {
+          "title": "Call Information",
+          "fields": [
+            {
+              "name": "Date",
+              "field": "enquiryDate",
+              "type": "date",
+              "width": 50,
+              "default": "currentDate"
+            },
+            {
+              "name": "Time",
+              "field": "unknown17",
+              "type": "time",
+              "width": 50,
+              "default": "currentTime"
+            }
+          ]
+        },
+        {
+          "title": "Enquiry Nature",
+          "fields": [
+            {
+              "name": "Nature",
+              "field": "enquiryNature",
+              "type": "checkbox",
+              "code": "ENQUIRY_NATURE",
+              "width": 50
+            },
+            {
+              "name": "Request for",
+              "field": "unknown18",
+              "type": "checkbox",
+              "values": ["Analysis", "Antidote"],
+              "width": 50
+            },
+            {
+              "name": "Use existing source",
+              "field": "unknown19",
+              "type": "dropdown",
+              "values": ["todo", "1", "2", "3"]
+            },
+            {
+              "name": "Source of enquiry",
+              "field": "sourceOfEnquiry",
+              "type": "lookup",
+              "code": "SOURCE_OF_ENQUIRY",
+              "width": 50
+            },
+            {
+              "name": "Country",
+              "field": "centreCallTakenFor",
+              "type": "lookup",
+              "values": {
+                "channel_islands": "Channel Islands",
+                "england": "England",
+                "international": "International",
+                "ireland": "Ireland",
+                "isle_of_man": "Isle of Man",
+                "northern_ireland": "Northern Ireland",
+                "scotland": "Scotland",
+                "wales": "Wales"
+              },
+              "width": 50
+            }
+          ]
+        },
+        {
+          "title": "Contact Information",
+          "fields": [
+            {
+              "name": "Name",
+              "field": "contactName",
+              "type": "text"
+            },
+            {
+              "name": "Email",
+              "field": "enquirerEmail",
+              "type": "text"
+            },
+            {
+              "type": "form",
+              "width": 70,
+              "defaultRows": 3,
+              "cells": [
+                {
+                  "name": "Number",
+                  "field": "enquirerTelephone",
+                  "width": 60
+                },
+                {
+                  "name": "Type",
+                  "field": "unkown",
+                  "width": 40
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "width": 30,
+              "defaultRows": 3,
+              "cells": [
+                {
+                  "name": "Extension",
+                  "field": "extension"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "width": 50,
+      "sections": [
+        {
+          "title": "Enquirer Information",
+          "fields": [
+            {
+              "name": "Enquirer",
+              "field": "enquirer",
+              "type": "text",
+              "width": 50
+            },
+            {
+              "name": "Method",
+              "field": "enquiryMechanism",
+              "type": "text",
+              "width": 50
+            },
+            {
+              "type": "form",
+              "defaultRows": 6,
+              "cells": [
+                {
+                  "name": "Address",
+                  "field": "enquirerAddress"
+                }
+              ]
+            },
+            {
+              "name": "Postcode",
+              "field": "enquirerPostcode",
+              "type": "text",
+              "width": 50
+            }
+          ]
+        },
+        {
+          "title": "Vectors",
+          "fields": [
+            {
+              "name": "Ward",
+              "field": "ward",
+              "type": "text"
+            },
+            {
+              "name": "Number Exposed",
+              "field": "numberExposed",
+              "type": "text"
+            },
+            {
+              "name": "Approx number in pop",
+              "field": "count",
+              "type": "text"
+            },
+            {
+              "name": "Incident reference",
+              "field": "unknown20",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Patient": [
+    {
+      "sections": [
+        {
+          "title": "Patient Information",
+          "fields": [
+            {
+              "name": "Patient Name",
+              "field": "patientName",
+              "type": "text",
+              "width": 30
+            },
+            {
+              "name": "Date of Birth",
+              "field": "dob",
+              "type": "text",
+              "width": 15
+            },
+            {
+              "name": "Patient number",
+              "field": "patientNumber",
+              "type": "text",
+              "width": 15
+            },
+            {
+              "name": "Home Postcode",
+              "field": "patientPostcode",
+              "type": "text",
+              "width": 30
+            },
+            {
+              "type": "space",
+              "width": 10
+            },
+            {
+              "type": "fieldset",
+              "width": 20,
+              "fieldsetLegend": "Age",
+              "fields": [
+                {
+                  "name": "Age",
+                  "nameHidden": true,
+                  "field": "ageInYears",
+                  "type": "number",
+                  "width": 40
+                },
+                {
+                  "name": "Units",
+                  "nameHidden": true,
+                  "field": "unknown21",
+                  "type": "dropdown",
+                  "width": 60,
+                  "code": "AGE_UNITS"
+                }
+              ]
+            },
+            {
+              "type": "fieldset",
+              "width": 20,
+              "fieldsetLegend": "Weight",
+              "fields": [
+                {
+                  "name": "Weight",
+                  "nameHidden": true,
+                  "field": "weight",
+                  "type": "number",
+                  "width": 40
+                },
+                {
+                  "name": "Units",
+                  "nameHidden": true,
+                  "field": "unknown22",
+                  "type": "dropdown",
+                  "width": 60,
+                  "values": ["Kg", "Lb", "St"]
+                }
+              ]
+            },
+            {
+              "name": "Sex at birth",
+              "field": "gender",
+              "type": "lookup",
+              "code": "GENDER",
+              "width": 15
+            },
+            {
+              "name": "Pregnant",
+              "field": "pregnant",
+              "type": "lookup",
+              "code": "PREGNANT",
+              "width": 13,
+              "conditional": {
+                "field": "gender",
+                "compare": "equals",
+                "value": ["Female", "female", "F", "f"]
+              }
+            },
+            {
+              "name": "Term",
+              "field": "unknown23",
+              "type": "text",
+              "width": 13,
+              "conditional": {
+                "field": "gender",
+                "compare": "equals",
+                "value": ["Female", "female", "F", "f"]
+              }
+            },
+            {
+              "name": "Lactating",
+              "field": "lactating",
+              "type": "lookup",
+              "code": "LACTATING",
+              "width": 13,
+              "conditional": {
+                "field": "gender",
+                "compare": "equals",
+                "value": ["Female", "female", "F", "f"]
+              }
+            },
+            {
+              "type": "form",
+              "width": 30,
+              "defaultRows": 4,
+              "cells": [
+                {
+                  "name": "Prior Features",
+                  "field": "priorFeatures"
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "width": 30,
+              "defaultRows": 4,
+              "cells": [
+                {
+                  "name": "Feature Codes",
+                  "field": "featureCodes"
+                }
+              ]
+            },
+            {
+              "name": "Medical History",
+              "field": "medicalHistory",
+              "type": "textarea",
+              "width": 40
+            }
+          ]
+        },
+        {
+          "title": "Treatment Information",
+          "fields": [
+            {
+              "name": "Treatments prior",
+              "field": "treatmentsPriorToCall",
+              "type": "text",
+              "width": 10
+            },
+            {
+              "type": "space",
+              "width": 90
+            },
+            {
+              "type": "form",
+              "width": 30,
+              "defaultRows": 3,
+              "conditional": {
+                "field": "treatmentsPriorToCall",
+                "compare": "equals",
+                "value": "Yes"
+              },
+              "cells": [
+                {
+                  "name": "Treatments",
+                  "field": "treatments"
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "width": 30,
+              "defaultRows": 3,
+              "conditional": {
+                "field": "treatments",
+                "compare": "includes",
+                "value": "Antidotes"
+              },
+              "cells": [
+                {
+                  "name": "Antidotes",
+                  "field": "unknown "
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "width": 70,
+              "defaultRows": 7,
+              "conditional": {
+                "field": "treatments",
+                "compare": "includes",
+                "value": "Investigations"
+              },
+              "cells": [
+                {
+                  "name": "Investigations",
+                  "field": "investigations",
+                  "width": 50
+                },
+                {
+                  "name": "Results",
+                  "field": "resultsOfInvestigations",
+                  "width": 50
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Agent Information": [
+    {
+      "sections": [
+        {
+          "title": "Agent",
+          "fields": [
+            {
+              "type": "form",
+              "defaultRows": 6,
+              "cells": [
+                {
+                  "name": "Agent",
+                  "field": "agentName",
+                  "width": 30
+                },
+                {
+                  "name": "Exp Type",
+                  "field": "exposureType",
+                  "width": 10
+                },
+                {
+                  "name": "Amount",
+                  "field": "agentAmount",
+                  "width": 10
+                },
+                {
+                  "name": "Unit",
+                  "field": "agentUnit",
+                  "width": 10
+                },
+                {
+                  "name": "Duration",
+                  "field": "durationOfExposure",
+                  "width": 10
+                },
+                {
+                  "name": "Unit",
+                  "field": "durationUnits",
+                  "width": 10
+                },
+                {
+                  "name": "Time Since",
+                  "field": "timeSinceExposure",
+                  "width": 10
+                },
+                {
+                  "name": "Unit",
+                  "field": "timeSinceExposureUnits",
+                  "width": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Agent",
+          "fields": [
+            {
+              "type": "form",
+              "defaultRows": 6,
+              "width": 50,
+              "cells": [
+                {
+                  "name": "Ingredients",
+                  "field": "unknown15"
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "defaultRows": 6,
+              "width": 50,
+              "cells": [
+                {
+                  "name": "Exposure Route",
+                  "field": "exposureRoute"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Location & Circumstances",
+          "fields": [
+            {
+              "name": "Incident location",
+              "field": "incidentLocation",
+              "type": "lookup",
+              "code": "LOCATION",
+              "width": 50
+            },
+            {
+              "name": "Incident Postcode",
+              "field": "incidentPostcode",
+              "type": "text",
+              "width": 50
+            },
+            {
+              "name": "Circumstances",
+              "field": "circumstances",
+              "type": "lookup",
+              "code": "CIRCUMSTANCES",
+              "width": 50
+            },
+            {
+              "name": "NTXB",
+              "nameHidden": true,
+              "field": "unknown16",
+              "type": "checkbox",
+              "width": 50,
+              "values": ["NTXB"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Response": [
+    {
+      "width": 50,
+      "sections": [
+        {
+          "title": "Advice Provided",
+          "fields": [
+            {
+              "name": "Treatment Req",
+              "field": "unknown28",
+              "type": "lookup",
+              "code": "YN",
+              "width": 30
+            },
+            {
+              "name": "Referral",
+              "field": "referral",
+              "type": "array",
+              "width": 70
+            },
+            {
+              "type": "form",
+              "defaultRows": 3,
+              "cells": [
+                {
+                  "name": "Treatments recommended",
+                  "field": "treatmentsRecommended"
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "defaultRows": 3,
+              "cells": [
+                {
+                  "name": "Investigations recommended",
+                  "field": "investigationsRecommended"
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "defaultRows": 3,
+              "cells": [
+                {
+                  "name": "Antidotes recommended",
+                  "field": "unknown29"
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "defaultRows": 1,
+              "cells": [
+                {
+                  "name": "Clinician Recommended to",
+                  "field": "unknown30"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "width": 50,
+      "sections": [
+        {
+          "title": "Comments",
+          "fields": [
+            {
+              "name": "Comments",
+              "nameHidden": true,
+              "field": "comments",
+              "type": "textarea"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "title": "Response Metrics",
+          "fields": [
+            {
+              "type": "form",
+              "defaultRows": 2,
+              "width": 50,
+              "cells": [
+                {
+                  "name": "Source of information",
+                  "field": "sourceOfInformation"
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "defaultRows": 2,
+              "width": 25,
+              "cells": [
+                {
+                  "name": "Completion Date / Time",
+                  "field": "completionDate"
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "defaultRows": 2,
+              "width": 25,
+              "cells": [
+                {
+                  "name": "Buddy Checker",
+                  "field": "unknown31"
+                }
+              ]
+            },
+            {
+              "name": "Poisoning Severity Score",
+              "field": "poisoningSeverityScore",
+              "type": "text",
+              "width": 25
+            },
+            {
+              "name": "MAXPSS",
+              "field": "unknown32",
+              "type": "text",
+              "width": 25
+            },
+            {
+              "name": "Follow Up Required",
+              "field": "followupRequired",
+              "type": "text",
+              "width": 25
+            },
+            {
+              "name": "Enquiry Outcome",
+              "field": "enquiryOutcome",
+              "type": "text",
+              "width": 25
+            }
+          ]
+        },
+        {
+          "title": "Email Consultant",
+          "fields": [
+            {
+              "name": "Date",
+              "field": "unknown33",
+              "type": "date",
+              "width": 20
+            },
+            {
+              "name": "Time",
+              "field": "unknown34",
+              "type": "time",
+              "width": 20
+            },
+            {
+              "type": "space",
+              "width": 60
+            },
+            {
+              "name": "Consultant Responded",
+              "field": "unknown35",
+              "type": "text",
+              "width": 20
+            },
+            {
+              "name": "Date Responded",
+              "field": "unknown36",
+              "type": "date",
+              "width": 20,
+              "conditional": {
+                "field": "unknown37",
+                "compare": "equals",
+                "value": ["Yes", "yes", "Y", "y"]
+              }
+            },
+            {
+              "name": "Time Responded",
+              "field": "unknown38",
+              "type": "time",
+              "width": 20,
+              "conditional": {
+                "field": "unknown39",
+                "compare": "equals",
+                "value": ["Yes", "yes", "Y", "y"]
+              }
+            },
+            {
+              "name": "Accuracy Confirmed",
+              "field": "unknown40",
+              "type": "text",
+              "width": 20,
+              "conditional": {
+                "field": "unknown41",
+                "compare": "equals",
+                "value": ["Yes", "yes", "Y", "y"]
+              }
+            },
+            {
+              "name": "Changes Made",
+              "field": "unknown42",
+              "type": "text",
+              "width": 20,
+              "conditional": {
+                "field": "unknown43",
+                "compare": "equals",
+                "value": ["Yes", "yes", "Y", "y"]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Follow-up": [
+    {
+      "sections": [
+        {
+          "title": "Follow-Up",
+          "fields": [
+            {
+              "name": "Responder",
+              "field": "unknown1",
+              "type": "text",
+              "width": 30
+            },
+            {
+              "name": "Method",
+              "field": "unknown2",
+              "type": "text",
+              "width": 15
+            },
+            {
+              "name": "Date",
+              "field": "unknown3",
+              "type": "date",
+              "width": 15
+            },
+            {
+              "name": "Time",
+              "field": "unknown4",
+              "type": "time",
+              "width": 15
+            },
+            {
+              "type": "space",
+              "width": 25
+            },
+            {
+              "name": "Contact Name",
+              "field": "unknown5",
+              "type": "text",
+              "width": 30
+            },
+            {
+              "name": "Contact Number",
+              "field": "unknown6",
+              "type": "text",
+              "width": 30
+            },
+            {
+              "type": "space",
+              "width": 40
+            },
+            {
+              "name": "Follow Up",
+              "field": "unknown7",
+              "type": "textarea"
+            },
+            {
+              "type": "form",
+              "defaultRows": 3,
+              "width": 25,
+              "cells": [
+                {
+                  "name": "Additional Feature Codes",
+                  "field": "unknown8"
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "defaultRows": 3,
+              "width": 25,
+              "cells": [
+                {
+                  "name": "Additional Treatment",
+                  "field": "unknown9"
+                }
+              ]
+            },
+            {
+              "type": "form",
+              "defaultRows": 3,
+              "width": 25,
+              "cells": [
+                {
+                  "name": "Additional Antidotes",
+                  "field": "unknown10"
+                }
+              ]
+            },
+            {
+              "type": "space",
+              "width": 25
+            },
+            {
+              "name": "MAXPSS",
+              "field": "unknown11",
+              "type": "text",
+              "width": 15
+            },
+            {
+              "name": "Completed?",
+              "field": "unknown12",
+              "type": "checkbox",
+              "width": 15,
+              "values": [""]
+            },
+            {
+              "name": "Next Follow-Up Due",
+              "field": "unknown13",
+              "type": "text",
+              "width": 20
+            },
+            {
+              "name": "Time",
+              "field": "unknown14",
+              "type": "text",
+              "width": 10
+            },
+            {
+              "name": "Assigned to",
+              "field": "unknown",
+              "type": "text",
+              "width": 20
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Research": [
+    {
+      "sections": [
+        {
+          "title": "Research",
+          "fields": [
+            {
+              "name": "Select Research",
+              "type": "dropdown",
+              "field": "unknown24",
+              "values": ["Propranolol Study", "Some Other Study"],
+              "width": 30
+            }
+          ]
+        },
+        {
+          "title": "Study Name",
+          "fields": [
+            {
+              "name": "Referral Hospital",
+              "field": "unknown25",
+              "type": "text",
+              "width": 30
+            },
+            {
+              "type": "space",
+              "width": 20
+            },
+            {
+              "type": "fieldset",
+              "width": 30,
+              "fieldsetLegend": "What is the patient's usual dose?",
+              "fields": [
+                {
+                  "name": "Dose",
+                  "nameHidden": true,
+                  "field": "unknown26",
+                  "type": "text",
+                  "width": 15
+                },
+                {
+                  "name": "Units",
+                  "nameHidden": true,
+                  "field": "unknown27",
+                  "type": "dropdown",
+                  "values": ["Mg", "g"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -11,9 +11,11 @@
 |
 */
 
+use App\FormDefinition\FileImport;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\CodeTableController;
 use App\Http\Controllers\EnquiryController;
+use App\Http\Controllers\FormDefinitionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
@@ -26,10 +28,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResourceWithAudits('user', UserController::class);
 
     Route::apiResource('role', RoleController::class)->only(['index']);
-    Route::apiResourceWithAudits('code-table', CodeTableController::class)->except(['destroy']);
     Route::apiResourceWithAudits('code', CodeController::class)->except(['destroy']);
+    Route::apiResourceWithAudits('code-table', CodeTableController::class)->except(['destroy']);
+    Route::apiResource('form-definition', FormDefinitionController::class)->except(['destroy']);
+    Route::post('/form-definition/validate', [FormDefinitionController::class, 'validateForm']);
 });
 
 // API resource routes for Enquiry
 Route::apiResource('enquiries', EnquiryController::class)
     ->parameters(['enquiries' => 'enquiry:key']);
+
+Route::get('/form-data', function () {
+    return response()->json(FileImport::getFormData());
+});
