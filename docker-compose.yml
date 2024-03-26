@@ -56,6 +56,14 @@ services:
     volumes:
       - ./.docker/.mysql:/var/lib/mysql
 
+  jsreport:
+    image: jsreport/jsreport:4.3.0
+    restart: unless-stopped
+    ports:
+      - "33082:5488"
+    volumes:
+      - ./.docker/.jsreport:/app/data
+
   mongo:
     image: mongo:7.0.2
     container_name: mongo
