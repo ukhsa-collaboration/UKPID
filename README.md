@@ -70,13 +70,13 @@ The actual application is contained within the `/application` directory.
 2. In `/application`, copy the `.env.development` file to `.env`.
     * This should contain all the environment variables required to get started for development
 3. Run `docker-compose build` in the root of the project to build the docker images
-5. Run `docker-compose run npm npm install` to install node packages
-6. Run `docker-compose run laravel composer install` to install php packages
+4. Run `docker-compose run npm npm install` to install node packages
+5. Run `docker-compose run laravel composer install` to install php packages
 6. Run `docker-compose run vite npm run build` to generate frontend assets
-4. Run `docker-compose up` in the root of the project to start the docker containers
-7. In a new terminal window, run `docker-compose exec laravel php artisan key:generate` to generate application encryption keys
-8. Run `docker-compose exec laravel php artisan migrate --seed` to create and populate the database
-9. Once that's all finished, the application should be visible at [http://localhost:35080](http://localhost:35080)
+7. Run `docker-compose up` in the root of the project to start the docker containers
+8. In a new terminal window, run `docker-compose exec laravel php artisan key:generate` to generate application encryption keys
+9. Run `docker-compose exec laravel php artisan migrate --seed` to create and populate the database
+10. Once that's all finished, the application should be visible at [http://localhost:35080](http://localhost:35080)
 
 Add yourself to the authors listed in the composer.json file!
 

@@ -15,7 +15,7 @@
             },
             {
               "name": "Time",
-              "field": "unknown17",
+              "field": "enquiryTime",
               "type": "time",
               "width": 50,
               "default": "currentTime"
