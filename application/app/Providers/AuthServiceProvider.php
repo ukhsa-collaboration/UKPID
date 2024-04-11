@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Models\Code;
 use App\Models\CodeTable;
+use App\Models\Enquiry;
 use App\Models\FormDefinition;
 use App\Models\Passport\Client;
 use App\Policies\CodePolicy;
 use App\Policies\CodeTablePolicy;
+use App\Policies\EnquiryPolicy;
 use App\Policies\FormDefinitionPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
@@ -21,8 +23,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         CodeTable::class => CodeTablePolicy::class,
-        Code::class => CodePolicy::class,
         FormDefinition::class => FormDefinitionPolicy::class,
+        Enquiry::class => EnquiryPolicy::class,
+        Code::class => CodePolicy::class,
     ];
 
     /**

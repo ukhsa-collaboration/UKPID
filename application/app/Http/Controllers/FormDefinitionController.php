@@ -31,6 +31,9 @@ class FormDefinitionController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(StoreFormDefinition $request)
     {
         try {

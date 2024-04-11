@@ -12,11 +12,13 @@ class FormDefinition extends Model
 
     protected $guarded = [];
 
+    protected $primaryKey = 'version';
+
     /**
      * Get the route key for the model.
      */
     public function getRouteKeyName(): string
     {
-        return 'version';
+        return $this->primaryKey;
     }
 }
