@@ -12,11 +12,13 @@ class Enquiry extends Model
 
     protected $guarded = [];
 
+    protected $primaryKey = 'key';
+
     /**
      * Get the route key for the model.
      */
     public function getRouteKeyName(): string
     {
-        return 'key';
+        return $this->primaryKey;
     }
 }

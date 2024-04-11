@@ -20,5 +20,9 @@ Route::middleware([CheckTemporaryPasswordMiddleware::class])->group(function () 
     })->name('welcome');
 });
 
+Route::get('/test', function () {
+    return view('test');
+})->name('test');
+
 require __DIR__.'/auth.php';
 require __DIR__.'/passport.php';

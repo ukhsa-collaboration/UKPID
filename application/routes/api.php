@@ -11,7 +11,6 @@
 |
 */
 
-use App\FormDefinition\FileImport;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\CodeTableController;
 use App\Http\Controllers\EnquiryController;
@@ -30,14 +29,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::apiResource('role', RoleController::class)->only(['index']);
     Route::apiResourceWithAudits('code', CodeController::class)->except(['destroy']);
     Route::apiResourceWithAudits('code-table', CodeTableController::class)->except(['destroy']);
-    Route::apiResource('form-definition', FormDefinitionController::class)->except(['destroy']);
+    Route::apiResourceWithAudits('form-definition', FormDefinitionController::class)->except(['destroy']);
     Route::post('/form-definition/validate', [FormDefinitionController::class, 'validateForm']);
-});
 
-// API resource routes for Enquiry
-Route::apiResource('enquiries', EnquiryController::class)
-    ->parameters(['enquiries' => 'enquiry:key']);
-
-Route::get('/form-data', function () {
-    return response()->json(FileImport::getFormData());
+    Route::apiResource('enquiries', EnquiryController::class)
+        ->except(['destroy'])
+        ->parameters(['enquiries' => 'enquiry:key']);
 });

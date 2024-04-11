@@ -20,13 +20,10 @@ class FormDefinitionSeeder extends Seeder
         if (File::exists($jsonPath)) {
             $jsonData = File::json($jsonPath);
 
-            $formDefinition = new FormDefinition();
-            $formDefinition->fill([
-                'version' => '1',
-                'requiredDesktopVersion' => '1.0.0',
-                'definition' => $jsonData,
-            ]);
-            $formDefinition->save();
+            FormDefinition::firstOrCreate(
+                ['version' => '1'],
+                ['requiredDesktopVersion' => '1.0.0', 'definition' => $jsonData]
+            );
 
         } else {
             echo 'The JSON file does not exist.';

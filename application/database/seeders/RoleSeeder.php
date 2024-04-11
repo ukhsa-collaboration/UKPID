@@ -28,6 +28,9 @@ class RoleSeeder extends Seeder
 
         $role->givePermissionTo([
             'form_data.update',
+            'enquiry.read',
+            'enquiry.create',
+            'enquiry.update',
         ]);
     }
 
@@ -48,6 +51,9 @@ class RoleSeeder extends Seeder
             'role.assign.manager',
             'role.assign.user',
             'audit.read',
+            'enquiry.read',
+            'enquiry.create',
+            'enquiry.update',
             'source_of_enquiry.read',
             'source_of_enquiry.create',
             'source_of_enquiry.update',
@@ -72,8 +78,11 @@ class RoleSeeder extends Seeder
             'role.assign.manager',
             'role.assign.user',
             'source_of_enquiry.read',
+            'enquiry.read',
+            'enquiry.create',
             'code_table.read',
             'code.read',
+            'enquiry.update',
         ]);
     }
 
@@ -85,8 +94,11 @@ class RoleSeeder extends Seeder
 
         $role->givePermissionTo([
             'source_of_enquiry.read',
+            'enquiry.read',
+            'enquiry.create',
             'code_table.read',
             'code.read',
+            'enquiry.update',
         ]);
     }
 }

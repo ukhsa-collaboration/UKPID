@@ -2,49 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEnquiryRequest;
+use App\Http\Requests\UpdateEnquiryRequest;
 use App\Http\Resources\EnquiryCollection;
 use App\Http\Resources\EnquiryResource;
 use App\Models\Enquiry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class EnquiryController extends Controller
 {
-    public function index()
+    /**
+     * @return EnquiryCollection
+     */
+    public function index(Request $request)
     {
-        $enquiries = Enquiry::paginate(10);
+        Gate::authorize('viewAny', Enquiry::class);
+
+        $query = Enquiry::query()->select(['key', 'agentName', 'contactName', 'enquiryDate', 'enquiryTime']);
+
+        if ($request->has('field')) {
+            $query->where('field', 'like', '%'.$request->input('field').'%');
+        }
+
+        $perPage = $request->input('perPage', 100);
+
+        $enquiries = $query->paginate($perPage)->appends([
+            'field' => $request->input('field'),
+            'perPage' => $perPage,
+        ]);
 
         return new EnquiryCollection($enquiries);
     }
 
-    public function store(Request $request)
+    /**
+     * @return EnquiryResource
+     */
+    public function store(StoreEnquiryRequest $request)
     {
-        $request->validate([
-            'key' => 'required|unique:mongodb.Enquiries', // assuming 'enquiries' is your table name
-        ]);
+        Gate::authorize('create', Enquiry::class);
 
-        $enquiry = Enquiry::create($request->toArray());
+        $enquiry = Enquiry::create(array_merge($request->validated(), ['author' => $request->user()->email]));
 
         return new EnquiryResource($enquiry);
     }
 
+    /**
+     * @return EnquiryResource
+     */
     public function show(Enquiry $enquiry)
     {
-        return new EnquiryResource($enquiry);
-    }
-
-    public function update(Request $request, Enquiry $enquiry)
-    {
-        // see app/Http/Requests/EnquiryRequest
-        // $validatedData = $request->validate($request->toArray());
-        $enquiry->update($request->toArray());
+        Gate::authorize('view', $enquiry);
 
         return new EnquiryResource($enquiry);
     }
 
-    public function destroy(Enquiry $enquiry)
+    /**
+     * @return EnquiryResource
+     */
+    public function update(UpdateEnquiryRequest $request, Enquiry $enquiry)
     {
-        $enquiry->delete();
+        Gate::authorize('update', $enquiry);
+        $enquiry->update($request->validated());
 
-        return response()->json(null, 204); // No content
+        return new EnquiryResource($enquiry);
     }
 }

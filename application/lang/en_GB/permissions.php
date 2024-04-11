@@ -23,6 +23,10 @@ return [
 
     'audit.read' => 'View audit logs.',
 
+    'enquiry.read' => 'Read enquiries.',
+    'enquiry.create' => 'Create a new enquiry.',
+    'enquiry.update' => 'Update an enquiry.',
+
     'source_of_enquiry.read' => 'Read sources of enquiry.',
     'source_of_enquiry.create' => 'Create a new source of enquiry.',
     'source_of_enquiry.update' => 'Update a source of enquiry.',
