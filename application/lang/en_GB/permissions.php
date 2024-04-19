@@ -7,6 +7,7 @@ return [
     | Permissions Language Lines
     |--------------------------------------------------------------------------
     */
+    'form_data.read' => 'Read form definitions',
     'form_data.update' => 'Update form definitions',
 
     'user.create' => 'Create new users.',
@@ -26,8 +27,4 @@ return [
     'enquiry.read' => 'Read enquiries.',
     'enquiry.create' => 'Create a new enquiry.',
     'enquiry.update' => 'Update an enquiry.',
-
-    'source_of_enquiry.read' => 'Read sources of enquiry.',
-    'source_of_enquiry.create' => 'Create a new source of enquiry.',
-    'source_of_enquiry.update' => 'Update a source of enquiry.',
 ];

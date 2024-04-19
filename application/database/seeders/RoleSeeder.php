@@ -28,6 +28,7 @@ class RoleSeeder extends Seeder
 
         $role->givePermissionTo([
             'form_data.update',
+            'form_data.read',
             'enquiry.read',
             'enquiry.create',
             'enquiry.update',
@@ -51,12 +52,10 @@ class RoleSeeder extends Seeder
             'role.assign.manager',
             'role.assign.user',
             'audit.read',
+            'form_data.read',
             'enquiry.read',
             'enquiry.create',
             'enquiry.update',
-            'source_of_enquiry.read',
-            'source_of_enquiry.create',
-            'source_of_enquiry.update',
             'code_table.read',
             'code_table.create',
             'code_table.update',
@@ -77,7 +76,7 @@ class RoleSeeder extends Seeder
             'user.delete',
             'role.assign.manager',
             'role.assign.user',
-            'source_of_enquiry.read',
+            'form_data.read',
             'enquiry.read',
             'enquiry.create',
             'code_table.read',
@@ -93,7 +92,7 @@ class RoleSeeder extends Seeder
         ]);
 
         $role->givePermissionTo([
-            'source_of_enquiry.read',
+            'form_data.read',
             'enquiry.read',
             'enquiry.create',
             'code_table.read',

@@ -26,6 +26,7 @@ class PermissionSeeder extends Seeder
 
         // Provide role descriptions via language translations in lang/<locale>/permissions.php
         $permissions = [
+            'form_data.read',
             'form_data.update',
             'user.create',
             'user.read',
@@ -42,9 +43,6 @@ class PermissionSeeder extends Seeder
             'enquiry.read',
             'enquiry.create',
             'enquiry.update',
-            'source_of_enquiry.read',
-            'source_of_enquiry.create',
-            'source_of_enquiry.update',
             'code_table.read',
             'code_table.create',
             'code_table.update',

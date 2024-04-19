@@ -12,7 +12,7 @@ class FormDefinitionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('form_data.update');
+        return $user->can('form_data.read');
     }
 
     /**
@@ -20,7 +20,7 @@ class FormDefinitionPolicy
      */
     public function view(User $user, FormDefinition $formDefinition): bool
     {
-        return $user->can('form_data.update');
+        return $user->can('form_data.read');
     }
 
     /**
